@@ -123,7 +123,7 @@ const TestimonialsSection = () => {
                 whileHover={{ y: -5, scale: 1.02 }}
                 className={`group p-8 rounded-2xl transition-all duration-300 ${
                   darkMode 
-                    ? 'bg-gray-800 hover:bg-gray-700 hover:shadow-2xl hover:shadow-blue-500/20' 
+                    ? 'bg-gray-800 hover:bg-gray-700 hover:shadow-2xl hover:shadow-cyan-500/20' 
                     : 'bg-white hover:shadow-2xl hover:shadow-gray-300/50'
                 }`}
               >
@@ -155,7 +155,7 @@ const TestimonialsSection = () => {
                     <p className={`text-sm ${
                       darkMode ? 'text-gray-400' : 'text-gray-600'
                     }`}>
-                      {testimonial?.position}
+                      {testimonial?.role}
                     </p>
                   </div>
                 </div>
@@ -213,10 +213,10 @@ const TestimonialsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className={`mt-16 p-8 md:p-12 rounded-3xl text-center ${
+          className={`mt-16 p-8 md:p-12 rounded-3xl text-center shadow-2xl transition-all duration-300 ${
             darkMode 
-              ? 'bg-gradient-to-br from-gray-800 to-gray-700' 
-              : 'bg-gradient-to-br from-blue-50 to-indigo-100'
+              ? 'bg-gradient-to-br from-gray-800 to-gray-700 hover:shadow-cyan-500/20' 
+              : 'bg-gradient-to-br from-blue-50 to-indigo-100 hover:shadow-blue-500/20'
           }`}
         >
           <h3 className={`text-2xl md:text-3xl font-bold mb-4 ${
@@ -234,7 +234,11 @@ const TestimonialsSection = () => {
               href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+              className={`px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 text-white ${
+                darkMode
+                  ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                  : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+              }`}
             >
               Start Your Project
             </motion.a>

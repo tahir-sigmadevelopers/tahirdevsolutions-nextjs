@@ -35,7 +35,9 @@ const ContactPage = () => {
       description: 'Feel free to reach out to me via email',
       contact: 'tahirsultanofficial@gmail.com',
       icon: (
-        <div className="h-16 w-16 rounded-full bg-blue-500 flex items-center justify-center text-white">
+        <div className={`h-16 w-16 rounded-full flex items-center justify-center text-white ${
+          darkMode ? 'bg-cyan-500' : 'bg-blue-500'
+        }`}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
@@ -175,7 +177,7 @@ const ContactPage = () => {
                 whileHover={{ y: -10, scale: 1.02 }}
                 className={`p-8 rounded-2xl text-center transition-all duration-300 ${
                   darkMode 
-                    ? 'bg-gray-800 hover:bg-gray-700 hover:shadow-2xl hover:shadow-blue-500/20' 
+                    ? 'bg-gray-800 hover:bg-gray-700 hover:shadow-2xl hover:shadow-cyan-500/20' 
                     : 'bg-white hover:shadow-2xl hover:shadow-gray-300/50'
                 }`}
               >
@@ -195,7 +197,11 @@ const ContactPage = () => {
                 <div className="mb-6">
                   <a
                     href={method.link}
-                    className="text-blue-500 hover:text-blue-600 font-medium transition-colors duration-200"
+                    className={`font-medium transition-colors duration-200 ${
+                      darkMode 
+                        ? 'text-cyan-400 hover:text-cyan-300'
+                        : 'text-blue-500 hover:text-blue-600'
+                    }`}
                   >
                     {method.contact}
                   </a>
@@ -295,7 +301,7 @@ const ContactPage = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className={`w-full px-4 py-3 rounded-lg border transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 rounded-lg border transition-colors duration-200 focus:ring-2 ${darkMode ? 'focus:ring-cyan-500' : 'focus:ring-blue-500'} focus:border-transparent ${
                       darkMode 
                         ? 'bg-gray-600 border-gray-500 text-white placeholder-gray-400' 
                         : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
@@ -319,7 +325,7 @@ const ContactPage = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className={`w-full px-4 py-3 rounded-lg border transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 rounded-lg border transition-colors duration-200 focus:ring-2 ${darkMode ? 'focus:ring-cyan-500' : 'focus:ring-blue-500'} focus:border-transparent ${
                       darkMode 
                         ? 'bg-gray-600 border-gray-500 text-white placeholder-gray-400' 
                         : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
@@ -370,7 +376,7 @@ const ContactPage = () => {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className={`w-full px-4 py-3 rounded-lg border transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${
+                  className={`w-full px-4 py-3 rounded-lg border transition-colors duration-200 focus:ring-2 ${darkMode ? 'focus:ring-cyan-500' : 'focus:ring-blue-500'} focus:border-transparent resize-none ${
                     darkMode 
                       ? 'bg-gray-600 border-gray-500 text-white placeholder-gray-400' 
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
@@ -384,7 +390,11 @@ const ContactPage = () => {
                   type="submit"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                  className={`px-8 py-4 rounded-xl font-semibold shadow-lg transition-all duration-300 text-white ${
+                    darkMode 
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30' 
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                  }`}
                 >
                   Send Message
                 </motion.button>
@@ -402,10 +412,10 @@ const ContactPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`p-12 rounded-3xl text-center ${
+            className={`p-12 rounded-3xl text-center shadow-2xl transition-all duration-300 ${
               darkMode 
-                ? 'bg-gradient-to-br from-gray-800 to-gray-700' 
-                : 'bg-gradient-to-br from-blue-50 to-indigo-100'
+                ? 'bg-gradient-to-br from-gray-800 to-gray-700 hover:shadow-cyan-500/20' 
+                : 'bg-gradient-to-br from-blue-50 to-indigo-100 hover:shadow-blue-500/20'
             }`}
           >
             <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${
@@ -423,7 +433,11 @@ const ContactPage = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   href="/projects"
-                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                  className={`px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 text-white ${
+                    darkMode 
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30' 
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                  }`}
                 >
                   View My Work
                 </Link>
@@ -433,7 +447,7 @@ const ContactPage = () => {
                   href="/services"
                   className={`px-8 py-3 rounded-xl font-semibold border-2 transition-all duration-300 ${
                     darkMode
-                      ? 'border-gray-600 text-white hover:bg-gray-600'
+                      ? 'border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white'
                       : 'border-gray-300 text-gray-700 hover:bg-gray-50'
                   }`}
                 >

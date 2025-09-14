@@ -55,7 +55,7 @@ export default function Header() {
             height={40}
             className="mr-2"
           />
-          <span className="text-xl font-bold text-blue-600 dark:text-blue-400">
+          <span className="text-xl font-bold text-blue-600 dark:text-cyan-400">
             Tahir Dev Solutions 
           </span>
         </Link>
@@ -145,7 +145,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/register"
-                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 dark:from-cyan-500 dark:to-cyan-600 text-white rounded-lg hover:shadow-lg transition-all duration-200"
+                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 dark:from-cyan-500 dark:to-gray-900 text-white rounded-lg hover:shadow-lg transition-all duration-200"
               >
                 Sign Up
               </Link>

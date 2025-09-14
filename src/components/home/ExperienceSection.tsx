@@ -128,17 +128,21 @@ const ExperienceSection = () => {
             <motion.div
               key={exp.id}
               variants={itemVariants}
-              className={`text-center p-8 rounded-2xl ${
+              className={`text-center p-8 rounded-2xl transition-all duration-300 ${
                 darkMode 
-                  ? 'bg-gray-700 hover:bg-gray-600' 
-                  : 'bg-gray-50 hover:bg-gray-100'
-              } transition-all duration-300 hover:shadow-lg`}
+                  ? 'bg-gray-700 hover:bg-gray-600 hover:shadow-2xl hover:shadow-cyan-500/20' 
+                  : 'bg-gray-50 hover:bg-gray-100 hover:shadow-2xl hover:shadow-gray-300/50'
+              }`}
             >
               <motion.div
                 variants={countVariants}
                 className="mb-4"
               >
-                <span className={`text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent`}>
+                <span className={`text-5xl md:text-6xl font-bold bg-clip-text text-transparent ${
+                  darkMode
+                    ? 'bg-gradient-to-r from-cyan-400 to-cyan-600'
+                    : 'bg-gradient-to-r from-blue-500 to-purple-600'
+                }`}>
                   {exp.number}
                 </span>
               </motion.div>
@@ -162,10 +166,10 @@ const ExperienceSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className={`rounded-3xl p-8 md:p-12 ${
+          className={`rounded-3xl p-8 md:p-12 shadow-2xl transition-all duration-300 ${
             darkMode 
-              ? 'bg-gradient-to-br from-gray-700 to-gray-800' 
-              : 'bg-gradient-to-br from-blue-50 to-indigo-100'
+              ? 'bg-gradient-to-br from-gray-700 to-gray-800 hover:shadow-cyan-500/20' 
+              : 'bg-gradient-to-br from-blue-50 to-indigo-100 hover:shadow-blue-500/20'
           }`}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -193,7 +197,11 @@ const ExperienceSection = () => {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     className="flex items-start space-x-3"
                   >
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center">
+                    <div className={`flex-shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center shadow-lg transition-all duration-300 ${
+                      darkMode 
+                        ? 'bg-gradient-to-r from-cyan-500 to-gray-800 hover:shadow-cyan-500/30 hover:scale-110' 
+                        : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30 hover:scale-110'
+                    }`}>
                       {feature.icon}
                     </div>
                     <div>
@@ -218,7 +226,11 @@ const ExperienceSection = () => {
                   href="/contact"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                  className={`px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 text-white ${
+                    darkMode
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                  }`}
                 >
                   Get Started
                 </motion.a>
@@ -239,9 +251,9 @@ const ExperienceSection = () => {
 
             {/* Right Content - Contact Info */}
             <div className="space-y-6">
-              <div className={`p-6 rounded-2xl ${
-                darkMode ? 'bg-gray-600' : 'bg-white'
-              } shadow-lg`}>
+              <div className={`p-6 rounded-2xl shadow-lg transition-all duration-300 ${
+                darkMode ? 'bg-gray-600 hover:shadow-cyan-500/20' : 'bg-white hover:shadow-blue-500/20'
+              }`}>
                 <h4 className={`text-lg font-semibold mb-4 ${
                   darkMode ? 'text-white' : 'text-gray-900'
                 }`}>
@@ -249,7 +261,9 @@ const ExperienceSection = () => {
                 </h4>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${
+                      darkMode ? 'text-cyan-500' : 'text-blue-500'
+                    }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -257,7 +271,9 @@ const ExperienceSection = () => {
                     </span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${
+                      darkMode ? 'text-cyan-500' : 'text-blue-500'
+                    }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                     </svg>
                     <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -265,7 +281,9 @@ const ExperienceSection = () => {
                     </span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${
+                      darkMode ? 'text-cyan-500' : 'text-blue-500'
+                    }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -275,9 +293,9 @@ const ExperienceSection = () => {
                 </div>
               </div>
 
-              <div className={`p-6 rounded-2xl ${
-                darkMode ? 'bg-gray-600' : 'bg-white'
-              } shadow-lg`}>
+              <div className={`p-6 rounded-2xl shadow-lg transition-all duration-300 ${
+                darkMode ? 'bg-gray-600 hover:shadow-cyan-500/20' : 'bg-white hover:shadow-blue-500/20'
+              }`}>
                 <h4 className={`text-lg font-semibold mb-4 ${
                   darkMode ? 'text-white' : 'text-gray-900'
                 }`}>

@@ -195,9 +195,9 @@ const ServicesSection = () => {
               key={service.id}
               variants={itemVariants}
               whileHover={{ y: -10, scale: 1.02 }}
-              className={`group p-8 rounded-2xl transition-all duration-300 ${
+              className={`group p-8 rounded-2xl transition-all duration-300 shadow-lg ${
                 darkMode 
-                  ? 'bg-gray-800 hover:bg-gray-700 hover:shadow-2xl hover:shadow-blue-500/20' 
+                  ? 'bg-gray-800 hover:bg-gray-700 hover:shadow-2xl hover:shadow-cyan-500/20' 
                   : 'bg-white hover:shadow-2xl hover:shadow-gray-300/50'
               }`}
             >
@@ -271,7 +271,7 @@ const ServicesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
+          className="text-center mt-16 p-8 rounded-3xl shadow-2xl transition-all duration-300 hover:shadow-cyan-500/20"
         >
           <h3 className={`text-2xl font-bold mb-4 ${
             darkMode ? 'text-white' : 'text-gray-900'
@@ -285,7 +285,11 @@ const ServicesSection = () => {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105"
+            className={`inline-flex items-center px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:scale-105 text-white ${
+              darkMode
+                ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+            }`}
           >
             Get Started
             <svg

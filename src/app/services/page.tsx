@@ -15,7 +15,9 @@ const ServicesPage = () => {
       title: "Web Development",
       description: "Custom-built web applications with modern technologies to provide exceptional user experiences with responsive design and optimal performance.",
       icon: (
-        <div className="h-16 w-16 rounded-2xl bg-blue-500 flex items-center justify-center text-white">
+        <div className={`h-16 w-16 rounded-2xl flex items-center justify-center text-white ${
+          darkMode ? 'bg-cyan-500' : 'bg-blue-500'
+        }`}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
           </svg>
@@ -260,7 +262,7 @@ const ServicesPage = () => {
                 whileHover={{ y: -10, scale: 1.02 }}
                 className={`group p-8 rounded-2xl transition-all duration-300 ${
                   darkMode 
-                    ? 'bg-gray-800 hover:bg-gray-700 hover:shadow-2xl hover:shadow-blue-500/20' 
+                    ? 'bg-gray-800 hover:bg-gray-700 hover:shadow-2xl hover:shadow-cyan-500/20' 
                     : 'bg-white hover:shadow-2xl hover:shadow-gray-300/50'
                 }`}
               >
@@ -270,8 +272,10 @@ const ServicesPage = () => {
                 </div>
 
                 {/* Service Title */}
-                <h3 className={`text-2xl font-bold mb-4 group-hover:text-blue-500 transition-colors duration-200 ${
-                  darkMode ? 'text-white' : 'text-gray-900'
+                <h3 className={`text-2xl font-bold mb-4 transition-colors duration-200 ${
+                  darkMode 
+                    ? 'text-white group-hover:text-cyan-400' 
+                    : 'text-gray-900 group-hover:text-blue-500'
                 }`}>
                   {service.title}
                 </h3>
@@ -345,7 +349,11 @@ const ServicesPage = () => {
                 <div className="mt-auto">
                   <Link
                     href={service.link}
-                    className="inline-flex items-center text-blue-500 hover:text-blue-600 font-medium text-sm transition-colors duration-200"
+                    className={`inline-flex items-center font-medium text-sm transition-colors duration-200 ${
+                      darkMode 
+                        ? 'text-cyan-400 hover:text-cyan-300'
+                        : 'text-blue-500 hover:text-blue-600'
+                    }`}
                   >
                     Learn More
                     <svg
@@ -402,7 +410,11 @@ const ServicesPage = () => {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                className={`inline-flex items-center px-8 py-4 rounded-xl font-semibold shadow-lg transition-all duration-300 text-white ${
+                  darkMode
+                    ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

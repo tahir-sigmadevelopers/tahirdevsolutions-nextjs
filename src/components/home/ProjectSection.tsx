@@ -207,7 +207,11 @@ const ProjectSection = () => {
         >
           <Link
             href="/projects"
-            className="inline-flex items-center px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105"
+            className={`inline-flex items-center px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:scale-105 text-white ${
+              darkMode
+                ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+            }`}
           >
             View All Projects
             <svg

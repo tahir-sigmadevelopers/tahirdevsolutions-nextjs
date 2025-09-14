@@ -128,14 +128,12 @@ const AboutPage = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className={`text-5xl md:text-6xl font-bold mb-6 ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h1 className={`text-5xl md:text-6xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
               My Background
             </h1>
-            <p className={`text-xl md:text-2xl max-w-4xl mx-auto ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}>
+            <p className={`text-xl md:text-2xl max-w-4xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
               Passionate developer crafting digital experiences that make a difference
             </p>
           </motion.div>
@@ -151,12 +149,15 @@ const AboutPage = () => {
             >
               <div className="relative w-80 h-80 mx-auto">
                 {/* Gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full blur-2xl opacity-30"></div>
-                
+                <div className={`absolute inset-0 rounded-full blur-2xl opacity-30 ${darkMode
+                  ? 'bg-gradient-to-br from-cyan-500 via-cyan-400 to-cyan-600'
+                  : 'bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500'
+                  }`}></div>
+
                 {/* Profile image */}
-                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
+                <div className="relative w-full h-full rounded-full  overflow-hidden border-4 border-white/20 shadow-2xl">
                   <Image
-                    src="/tahir.jpg"
+                    src="/tahir - about.png"
                     alt="Muhammad Tahir"
                     width={320}
                     height={320}
@@ -170,10 +171,15 @@ const AboutPage = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
-                  className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full bg-blue-500 text-white font-semibold shadow-lg"
+                  className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 
+              w-48  px-2 py-3 rounded-full text-center font-semibold shadow-lg text-white
+              ${darkMode
+                      ? 'bg-gradient-to-l from-gray-900 to-cyan-600'
+                      : 'bg-blue-500'}`}
                 >
                   MERN + WebFlow
                 </motion.div>
+
               </div>
             </motion.div>
 
@@ -184,24 +190,23 @@ const AboutPage = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="space-y-6"
             >
-              <h2 className={`text-4xl font-bold text-blue-500`}>
+              <h2 className={`text-4xl font-bold ${darkMode ? 'text-cyan-400' : 'text-blue-500'
+                }`}>
                 Muhammad Tahir
               </h2>
-              
-              <p className={`text-lg leading-relaxed ${
-                darkMode ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                I'm a passionate Full Stack Developer from a middle-class background, 
-                turning complex problems into efficient, scalable solutions. With 2.5+ 
-                years of experience, I specialize in building dynamic applications using the 
+
+              <p className={`text-lg leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                I'm a passionate Full Stack Developer from a middle-class background,
+                turning complex problems into efficient, scalable solutions. With 2.5+
+                years of experience, I specialize in building dynamic applications using the
                 MERN stack.
               </p>
 
-              <p className={`text-lg leading-relaxed ${
-                darkMode ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                I believe in continuous learning, delivering real value, and writing clean, 
-                maintainable code that helps businesses grow and succeed in the digital 
+              <p className={`text-lg leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                I believe in continuous learning, delivering real value, and writing clean,
+                maintainable code that helps businesses grow and succeed in the digital
                 world.
               </p>
 
@@ -213,7 +218,8 @@ const AboutPage = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.6 + index * 0.1 }}
-                    className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium"
+                    className={`px-4 py-2 rounded-full text-sm font-medium text-white ${darkMode ? 'bg-gradient-to-r from-cyan-500 to-gray-900' : 'bg-blue-500'
+                      }`}
                   >
                     {skill}
                   </motion.span>
@@ -234,9 +240,8 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className={`text-4xl font-bold mb-4 ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
               My expertise spans across various technologies in the web development ecosystem.
             </h2>
           </motion.div>
@@ -253,31 +258,32 @@ const AboutPage = () => {
               <motion.div
                 key={skill.name}
                 variants={itemVariants}
-                className={`p-6 rounded-xl transition-all duration-300 hover:scale-105 ${
-                  darkMode 
-                    ? 'bg-gray-800 hover:bg-gray-700' 
-                    : 'bg-white hover:shadow-lg'
-                }`}
+                className={`p-6 rounded-xl transition-all duration-300 hover:scale-105 ${darkMode
+                  ? 'bg-gray-800 hover:bg-gray-700'
+                  : 'bg-white hover:shadow-lg'
+                  }`}
               >
                 <div className="flex justify-between items-center mb-3">
-                  <h3 className={`font-semibold ${
-                    darkMode ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'
+                    }`}>
                     {skill.name}
                   </h3>
-                  <span className="text-blue-500 font-bold text-sm">
+                  <span className={`font-bold text-sm ${darkMode ? 'text-cyan-400' : 'text-blue-500'
+                    }`}>
                     {skill.level}%
                   </span>
                 </div>
-                <div className={`w-full h-2 rounded-full ${
-                  darkMode ? 'bg-gray-700' : 'bg-gray-200'
-                }`}>
+                <div className={`w-full h-2 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-gray-200'
+                  }`}>
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: index * 0.1 }}
-                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500"
+                    className={`h-full rounded-full ${darkMode
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-500'
+                      }`}
                   ></motion.div>
                 </div>
               </motion.div>
@@ -296,14 +302,12 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className={`text-4xl font-bold mb-4 ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
               Soft Skills
             </h2>
-            <p className={`text-lg max-w-3xl mx-auto ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}>
+            <p className={`text-lg max-w-3xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
               Beyond technical expertise, these qualities help me deliver exceptional results.
             </p>
           </motion.div>
@@ -320,25 +324,23 @@ const AboutPage = () => {
                 key={skill.title}
                 variants={itemVariants}
                 whileHover={{ y: -10, scale: 1.02 }}
-                className={`p-8 rounded-2xl text-center transition-all duration-300 ${
-                  darkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600 hover:shadow-2xl hover:shadow-blue-500/20' 
-                    : 'bg-gray-50 hover:bg-white hover:shadow-2xl hover:shadow-gray-300/50'
-                }`}
+                className={`p-8 rounded-2xl text-center transition-all duration-300 ${darkMode
+                  ? 'bg-gray-700 hover:bg-gray-600 hover:shadow-2xl hover:shadow-cyan-500/20'
+                  : 'bg-gray-50 hover:bg-white hover:shadow-2xl hover:shadow-gray-300/50'
+                  }`}
               >
                 <div className="flex justify-center mb-6">
-                  <div className="p-4 rounded-full bg-blue-500 text-white">
+                  <div className={`p-4 rounded-full text-white ${darkMode ? 'bg-gradient-to-r from-cyan-500 to-gray-900' : 'bg-blue-500'
+                    }`}>
                     {skill.icon}
                   </div>
                 </div>
-                <h3 className={`text-xl font-bold mb-4 ${
-                  darkMode ? 'text-white' : 'text-gray-900'
-                }`}>
+                <h3 className={`text-xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'
+                  }`}>
                   {skill.title}
                 </h3>
-                <p className={`text-sm leading-relaxed ${
-                  darkMode ? 'text-gray-300' : 'text-gray-600'
-                }`}>
+                <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
                   {skill.description}
                 </p>
               </motion.div>
@@ -357,14 +359,12 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className={`text-4xl font-bold mb-4 ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
               Education & Certifications
             </h2>
-            <p className={`text-lg max-w-3xl mx-auto ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}>
+            <p className={`text-lg max-w-3xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
               My formal education and ongoing learning journey.
             </p>
           </motion.div>
@@ -380,30 +380,26 @@ const AboutPage = () => {
               <motion.div
                 key={edu.degree}
                 variants={itemVariants}
-                className={`p-8 rounded-2xl transition-all duration-300 hover:scale-102 ${
-                  darkMode 
-                    ? 'bg-gray-800 hover:bg-gray-700' 
-                    : 'bg-white hover:shadow-lg'
-                }`}
+                className={`p-8 rounded-2xl transition-all duration-300 hover:scale-102 ${darkMode
+                  ? 'bg-gray-800 hover:bg-gray-700'
+                  : 'bg-white hover:shadow-lg'
+                  }`}
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                  <h3 className={`text-2xl font-bold mb-2 md:mb-0 ${
-                    darkMode ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h3 className={`text-2xl font-bold mb-2 md:mb-0 ${darkMode ? 'text-white' : 'text-gray-900'
+                    }`}>
                     {edu.degree}
                   </h3>
                   <span className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium">
                     {edu.period}
                   </span>
                 </div>
-                <p className={`text-lg font-medium mb-3 ${
-                  darkMode ? 'text-blue-400' : 'text-blue-600'
-                }`}>
+                <p className={`text-lg font-medium mb-3 ${darkMode ? 'text-blue-400' : 'text-blue-600'
+                  }`}>
                   {edu.institution}
                 </p>
-                <p className={`leading-relaxed ${
-                  darkMode ? 'text-gray-300' : 'text-gray-600'
-                }`}>
+                <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
                   {edu.description}
                 </p>
               </motion.div>
@@ -422,14 +418,12 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h2 className={`text-4xl font-bold mb-4 ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
               Download My Resume
             </h2>
-            <p className={`text-lg mb-8 max-w-2xl mx-auto ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}>
+            <p className={`text-lg mb-8 max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
               Get a comprehensive overview of my skills, experience, and qualifications.
             </p>
             <motion.a
@@ -456,21 +450,18 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`p-12 rounded-3xl text-center ${
-              darkMode 
-                ? 'bg-gradient-to-br from-gray-800 to-gray-700' 
-                : 'bg-gradient-to-br from-blue-50 to-indigo-100'
-            }`}
+            className={`p-12 rounded-3xl text-center ${darkMode
+              ? 'bg-gradient-to-br from-gray-800 to-gray-700'
+              : 'bg-gradient-to-br from-blue-50 to-indigo-100'
+              }`}
           >
-            <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
               Ready to Work Together?
             </h2>
-            <p className={`text-lg mb-8 max-w-2xl mx-auto ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              Let's collaborate to bring your ideas to life with cutting-edge web solutions 
+            <p className={`text-lg mb-8 max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+              Let's collaborate to bring your ideas to life with cutting-edge web solutions
               that drive real results for your business.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -485,11 +476,10 @@ const AboutPage = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   href="/projects"
-                  className={`px-8 py-3 rounded-xl font-semibold border-2 transition-all duration-300 ${
-                    darkMode
-                      ? 'border-gray-600 text-white hover:bg-gray-600'
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className={`px-8 py-3 rounded-xl font-semibold border-2 transition-all duration-300 ${darkMode
+                    ? 'border-gray-600 text-white hover:bg-gray-600'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                    }`}
                 >
                   View My Work
                 </Link>

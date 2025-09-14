@@ -179,7 +179,11 @@ const ProjectDetailPage = () => {
                         href={project.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                        className={`inline-flex items-center px-6 py-3 font-semibold rounded-lg shadow-lg transition-all duration-300 text-white ${
+                          darkMode
+                            ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                            : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                        }`}
                       >
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -507,7 +511,11 @@ const ProjectDetailPage = () => {
             </Link>
             <Link
               href="/contact"
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:shadow-lg transition-all duration-200"
+              className={`px-6 py-3 font-medium rounded-lg transition-all duration-200 text-white ${
+                darkMode
+                  ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-lg'
+                  : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg'
+              }`}
             >
               Hire Me for Similar Project
             </Link>

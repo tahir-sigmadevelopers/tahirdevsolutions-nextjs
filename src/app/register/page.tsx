@@ -172,7 +172,7 @@ const RegisterPage = () => {
   return (
     <div className={`min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ${
       darkMode 
-        ? 'bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900' 
+        ? 'bg-black' 
         : 'bg-gradient-to-br from-purple-50 via-white to-blue-50'
     }`}>
       <div className="max-w-md w-full space-y-8">
@@ -181,15 +181,17 @@ const RegisterPage = () => {
           initial="hidden"
           animate="visible"
           className={`${
-            darkMode ? 'bg-gray-800/50' : 'bg-white/80'
-          } backdrop-blur-xl rounded-2xl shadow-2xl p-8 border ${
-            darkMode ? 'border-gray-700/50' : 'border-white/20'
-          }`}
+            darkMode ? 'bg-gray-900/80 border-cyan-500/20' : 'bg-white/80 border-white/20'
+          } backdrop-blur-xl rounded-2xl shadow-2xl p-8 border`}
         >
           {/* Header */}
           <motion.div variants={itemVariants} className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center">
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${
+                darkMode 
+                  ? 'bg-gradient-to-r from-cyan-500 to-gray-900'
+                  : 'bg-gradient-to-r from-purple-500 to-blue-600'
+              }`}>
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
@@ -219,11 +221,11 @@ const RegisterPage = () => {
                   type="text"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 pl-12 rounded-xl border transition-all duration-200 focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+                  className={`w-full px-4 py-3 pl-12 rounded-xl border transition-all duration-200 focus:ring-2 ${darkMode ? 'focus:ring-cyan-500' : 'focus:ring-purple-500'} focus:border-transparent ${
                     errors.name
                       ? 'border-red-500 focus:ring-red-500'
                       : darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                   }`}
                   placeholder="Enter your full name"
@@ -262,11 +264,11 @@ const RegisterPage = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 pl-12 rounded-xl border transition-all duration-200 focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+                  className={`w-full px-4 py-3 pl-12 rounded-xl border transition-all duration-200 focus:ring-2 ${darkMode ? 'focus:ring-cyan-500' : 'focus:ring-purple-500'} focus:border-transparent ${
                     errors.email
                       ? 'border-red-500 focus:ring-red-500'
                       : darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                   }`}
                   placeholder="Enter your email"
@@ -305,11 +307,11 @@ const RegisterPage = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 pl-12 pr-12 rounded-xl border transition-all duration-200 focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+                  className={`w-full px-4 py-3 pl-12 pr-12 rounded-xl border transition-all duration-200 focus:ring-2 ${darkMode ? 'focus:ring-cyan-500' : 'focus:ring-purple-500'} focus:border-transparent ${
                     errors.password
                       ? 'border-red-500 focus:ring-red-500'
                       : darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                   }`}
                   placeholder="Create a strong password"
@@ -384,11 +386,11 @@ const RegisterPage = () => {
                   type={showConfirmPassword ? 'text' : 'password'}
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 pl-12 pr-12 rounded-xl border transition-all duration-200 focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+                  className={`w-full px-4 py-3 pl-12 pr-12 rounded-xl border transition-all duration-200 focus:ring-2 ${darkMode ? 'focus:ring-cyan-500' : 'focus:ring-purple-500'} focus:border-transparent ${
                     errors.confirmPassword
                       ? 'border-red-500 focus:ring-red-500'
                       : darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                   }`}
                   placeholder="Confirm your password"
@@ -436,17 +438,25 @@ const RegisterPage = () => {
                 name="terms"
                 type="checkbox"
                 required
-                className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                className={`h-4 w-4 focus:ring-2 border-gray-300 rounded ${
+                  darkMode 
+                    ? 'text-cyan-500 focus:ring-cyan-500'
+                    : 'text-purple-600 focus:ring-purple-500'
+                }`}
               />
               <label htmlFor="terms" className={`ml-2 block text-sm ${
                 darkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
                 I agree to the{' '}
-                <Link href="/terms" className="text-purple-600 hover:text-purple-500">
+                <Link href="/terms" className={`transition-colors ${
+                  darkMode ? 'text-cyan-400 hover:text-cyan-300' : 'text-purple-600 hover:text-purple-500'
+                }`}>
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link href="/privacy" className="text-purple-600 hover:text-purple-500">
+                <Link href="/privacy" className={`transition-colors ${
+                  darkMode ? 'text-cyan-400 hover:text-cyan-300' : 'text-purple-600 hover:text-purple-500'
+                }`}>
                   Privacy Policy
                 </Link>
               </label>
@@ -461,6 +471,8 @@ const RegisterPage = () => {
               className={`w-full flex items-center justify-center px-4 py-3 rounded-xl font-semibold transition-all duration-200 ${
                 loading
                   ? 'bg-gray-400 cursor-not-allowed'
+                  : darkMode
+                  ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:from-cyan-600 hover:to-gray-800 shadow-lg hover:shadow-xl hover:shadow-cyan-500/25'
                   : 'bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 shadow-lg hover:shadow-xl'
               } text-white`}
             >
@@ -484,7 +496,11 @@ const RegisterPage = () => {
               Already have an account?{' '}
               <Link
                 href="/login"
-                className="text-purple-600 hover:text-purple-500 font-medium transition-colors"
+                className={`font-medium transition-colors ${
+                  darkMode 
+                    ? 'text-cyan-400 hover:text-cyan-300'
+                    : 'text-purple-600 hover:text-purple-500'
+                }`}
               >
                 Sign in here
               </Link>

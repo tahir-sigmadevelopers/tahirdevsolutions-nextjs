@@ -200,7 +200,7 @@ const HeroSection = () => {
                   href="/projects"
                   className={`px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 text-white ${
                     darkMode
-                      ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 hover:shadow-cyan-500/30'
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
                       : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
                   }`}
                 >
@@ -309,7 +309,7 @@ const HeroSection = () => {
               <div className="flex items-center space-x-3">
                 <div className={`h-12 w-12 rounded-full flex items-center justify-center shadow-md ${
                   darkMode 
-                    ? 'bg-gradient-to-r from-cyan-500 to-cyan-600'
+                    ? 'bg-gradient-to-r from-cyan-500 to-gray-900'
                     : 'bg-gradient-to-r from-blue-500 to-purple-600'
                 }`}>
                   <svg
