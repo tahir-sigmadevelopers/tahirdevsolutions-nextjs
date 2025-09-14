@@ -39,8 +39,8 @@ A modern portfolio website built with Next.js 15, featuring a blog, project show
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/sigmadevelopers-next.git
-   cd sigmadevelopers-next
+   git clone https://github.com/tahir-sigmadevelopers/tahirdevsolutions-nextjs.git
+   cd tahirdevsolutions-nextjs
    ```
 
 2. Install dependencies:
@@ -60,7 +60,7 @@ A modern portfolio website built with Next.js 15, featuring a blog, project show
 ## Project Structure
 
 ```
-sigmadevelopers-next/
+tahirdev-nextjs/
 ├── public/             # Static assets
 ├── src/
 │   ├── app/            # App router pages
