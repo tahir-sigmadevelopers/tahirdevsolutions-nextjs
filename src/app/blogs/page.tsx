@@ -8,6 +8,26 @@ import Image from 'next/image';
 import { RootState } from '@/lib/redux/store';
 import { getBlogs } from '@/lib/redux/slices/blogSlice';
 
+interface BlogPost {
+  _id: string;
+  title: string;
+  slug?: string;
+  shortDescription?: string;
+  description?: string;
+  image: {
+    url: string;
+  };
+  category: {
+    name?: string;
+    category?: string;
+  };
+  createdAt: string | Date;
+  readTime?: number;
+  author: {
+    name?: string;
+  } | string;
+}
+
 const BlogsPage = () => {
   const { darkMode } = useSelector((state: RootState) => state.theme);
   const { blogs, loading } = useSelector((state: RootState) => state.blog);
@@ -22,10 +42,11 @@ const BlogsPage = () => {
   }, [dispatch]);
 
   // Mock blog data if no blogs from API
-  const mockBlogs = [
+  const mockBlogs: BlogPost[] = [
     {
       _id: '1',
       title: 'Boost Your Portfolio: 5 Must-Have Projects for Every Full Stack Developer in 2025',
+      slug: 'boost-portfolio-5-must-have-projects-full-stack-developer-2025',
       description: 'Whether you\'re aiming to land freelance clients, apply for a job, or simply showcase your skills, a strong portfolio is essential. As a full stack developer — especially one...',
       image: { url: '/blog.webp' },
       category: { name: 'MERN' },
@@ -36,6 +57,7 @@ const BlogsPage = () => {
     {
       _id: '2',
       title: '🚀 MERN Stack Developer Roadmap (2025) – From Beginner to Pro',
+      slug: 'mern-stack-developer-roadmap-2025-beginner-to-pro',
       description: 'The MERN Stack is one of the most popular web development stacks today, powering everything from startups to enterprise-grade applications. It combines...',
       image: { url: '/blog.webp' },
       category: { name: 'MERN' },
@@ -45,12 +67,20 @@ const BlogsPage = () => {
     }
   ];
 
-  const displayBlogs = blogs.length > 0 ? blogs : mockBlogs;
+  const displayBlogs = blogs.length > 0 ? blogs.map((blog: any) => {
+    console.log('🗂️ Processing blog from API:', { id: blog._id, title: blog.title, slug: blog.slug });
+    return {
+      ...blog,
+      category: { name: blog.category?.category || blog.category?.name },
+      author: { name: blog.author || 'Muhammad Tahir' }
+    };
+  }) : mockBlogs;
   
   // Filter blogs based on search and category
-  const filteredBlogs = displayBlogs.filter(blog => {
+  const filteredBlogs = displayBlogs.filter((blog: BlogPost) => {
+    const description = blog.shortDescription || blog.description || '';
     const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         blog.description.toLowerCase().includes(searchTerm.toLowerCase());
+                         description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All Categories' || 
                            blog.category?.name === selectedCategory;
     return matchesSearch && matchesCategory;
@@ -94,6 +124,11 @@ const BlogsPage = () => {
       month: 'short', 
       day: 'numeric' 
     });
+  };
+
+  const getAuthorName = (author: { name?: string } | string) => {
+    if (typeof author === 'string') return author;
+    return author?.name || 'Muhammad Tahir';
   };
 
   return (
@@ -286,12 +321,12 @@ const BlogsPage = () => {
                     <p className={`text-sm leading-relaxed mb-6 line-clamp-3 ${
                       darkMode ? 'text-gray-300' : 'text-gray-600'
                     }`}>
-                      {blog.description}
+                      {blog.shortDescription || blog.description || ''}
                     </p>
 
                     <div className="flex items-center justify-between">
                       <Link
-                        href={`/blogs/${blog._id}`}
+                        href={`/blogs/${blog.slug || blog._id}`}
                         className="inline-flex items-center text-blue-500 hover:text-blue-600 font-medium text-sm transition-colors duration-200"
                       >
                         Read More
@@ -306,7 +341,7 @@ const BlogsPage = () => {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                            d="M9 5l7 7-7 7"
                           />
                         </svg>
                       </Link>

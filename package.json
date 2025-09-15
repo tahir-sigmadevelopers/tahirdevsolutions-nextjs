@@ -10,7 +10,8 @@
     "seed": "tsx scripts/seedDatabase.ts",
     "seed:dev": "tsx scripts/seedDatabase.ts",
     "verify:db": "tsx scripts/verifyDatabase.ts",
-    "check:cloudinary": "node scripts/setup-cloudinary.js"
+    "check:cloudinary": "node scripts/setup-cloudinary.js",
+    "add-slugs": "tsx scripts/addSlugsToBlogs.ts"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",

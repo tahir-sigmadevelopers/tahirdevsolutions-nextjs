@@ -130,7 +130,7 @@ const AboutPage = () => {
           >
             <h1 className={`text-5xl md:text-6xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'
               }`}>
-              My Background
+             Who Am I ?
             </h1>
             <p className={`text-xl md:text-2xl max-w-4xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'
               }`}>

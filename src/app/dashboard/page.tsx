@@ -24,12 +24,6 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-    }
-  }, [status, router]);
-
-  useEffect(() => {
     if (session) {
       fetchDashboardData();
     }
@@ -92,7 +86,7 @@ const DashboardPage = () => {
     }
   };
 
-  if (status === 'loading' || loading) {
+  if (loading) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${
         darkMode ? 'bg-gray-900' : 'bg-gray-50'
@@ -100,10 +94,6 @@ const DashboardPage = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
       </div>
     );
-  }
-
-  if (!session) {
-    return null;
   }
 
   const statsDisplay = [

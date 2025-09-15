@@ -40,11 +40,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white dark:bg-gray-900 shadow-md'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
+        ? 'bg-white dark:bg-gray-900 shadow-md'
+        : 'bg-transparent'
+        }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
@@ -55,9 +54,18 @@ export default function Header() {
             height={40}
             className="mr-2"
           />
-          <span className="text-xl font-bold text-blue-600 dark:text-cyan-400">
-            Tahir Dev Solutions 
+
+          <span
+            className="px-6 py-3 bg-gradient-to-r from-gray-300 to-cyan-600 
+             bg-clip-text text-transparent 
+             hover:from-gray-600 hover:to-cyan-500
+             font-semibold rounded-xl transition-all duration-300 
+             disabled:opacity-50 disabled:cursor-not-allowed 
+             shadow-lg hover:shadow-xl"
+          >
+            Tahir Dev Solutions
           </span>
+
         </Link>
 
         {/* Mobile menu button */}
@@ -291,11 +299,10 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`text-base font-medium transition-colors duration-200 ${
-        active
-          ? 'text-blue-600 dark:text-cyan-400'
-          : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400'
-      }`}
+      className={`text-base font-medium transition-colors duration-200 ${active
+        ? 'text-blue-600 dark:text-cyan-400'
+        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400'
+        }`}
     >
       {children}
     </Link>

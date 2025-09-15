@@ -9,6 +9,7 @@ interface BlogImage {
 interface Blog {
   _id: string;
   title: string;
+  slug: string;
   author: string;
   shortDescription: string;
   category: any;

@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
+import { useSession } from 'next-auth/react';
 import { RootState } from '@/lib/redux/store';
 
 export default function DashboardLayout({
@@ -13,7 +14,88 @@ export default function DashboardLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { darkMode } = useSelector((state: RootState) => state.theme);
+  const { data: session, status } = useSession();
+
+  // Admin access control
+  useEffect(() => {
+    if (status === 'loading') return; // Still loading
+    
+    if (status === 'unauthenticated') {
+      router.push('/auth/signin');
+      return;
+    }
+    
+    if (session && (session.user as any)?.role !== 'admin') {
+      router.push('/profile');
+      return;
+    }
+  }, [status, session, router]);
+
+  // Show loading while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className={`min-h-screen flex items-center justify-center ${
+        darkMode ? 'bg-gray-900' : 'bg-gray-50'
+      }`}>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto"></div>
+          <p className={`mt-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+            Loading dashboard...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show access denied for non-admin users
+  if (status === 'authenticated' && (session.user as any)?.role !== 'admin') {
+    return (
+      <div className={`min-h-screen flex items-center justify-center ${
+        darkMode ? 'bg-gray-900' : 'bg-gray-50'
+      }`}>
+        <div className="text-center">
+          <h1 className={`text-2xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            Access Denied
+          </h1>
+          <p className={`mb-8 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            This dashboard is only accessible to admin users.
+          </p>
+          <Link
+            href="/profile"
+            className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors"
+          >
+            Go to Profile
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Show access denied for unauthenticated users
+  if (status === 'unauthenticated') {
+    return (
+      <div className={`min-h-screen flex items-center justify-center ${
+        darkMode ? 'bg-gray-900' : 'bg-gray-50'
+      }`}>
+        <div className="text-center">
+          <h1 className={`text-2xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            Authentication Required
+          </h1>
+          <p className={`mb-8 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            Please sign in to access the dashboard.
+          </p>
+          <Link
+            href="/auth/signin"
+            className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors"
+          >
+            Sign In
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`flex min-h-screen ${darkMode ? 'dark' : ''}`}>

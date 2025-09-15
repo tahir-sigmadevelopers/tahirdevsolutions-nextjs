@@ -143,3 +143,417 @@ body {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Jodit Editor Enhanced Styles */
+.jodit-container {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.jodit-container:focus-within {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Dark Theme Enhancements */
+.jodit-dark .jodit-container {
+  background: linear-gradient(135deg, #374151 0%, #4B5563 100%) !important;
+  border: 2px solid #4B5563 !important;
+  color: rgb(255 255 255) !important;
+}
+
+.jodit-dark .jodit-toolbar-editor-collection {
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%) !important;
+  border-bottom: 2px solid #4B5563 !important;
+  padding: 12px 16px !important;
+}
+
+.jodit-dark .jodit-toolbar-button {
+  color: rgb(209 213 219) !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+  margin: 2px !important;
+  transition: all 0.2s ease-in-out !important;
+  background: transparent !important;
+}
+
+.jodit-dark .jodit-toolbar-button:hover {
+  background: rgba(34, 197, 94, 0.1) !important;
+  color: rgb(34, 197, 94) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.2) !important;
+}
+
+.jodit-dark .jodit-toolbar-button.jodit-toolbar-button_active {
+  background: rgba(34, 197, 94, 0.2) !important;
+  color: rgb(34, 197, 94) !important;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3) !important;
+}
+
+.jodit-dark .jodit-workplace {
+  background: linear-gradient(135deg, #374151 0%, #4B5563 100%) !important;
+  color: rgb(255 255 255) !important;
+  padding: 0 !important;
+}
+
+.jodit-dark .jodit-wysiwyg {
+  background: transparent !important;
+  color: rgb(255 255 255) !important;
+  padding: 24px !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  min-height: 300px !important;
+  border: none !important;
+}
+
+.jodit-dark .jodit-wysiwyg:focus {
+  outline: none !important;
+  background: transparent !important;
+}
+
+.jodit-dark .jodit-wysiwyg p {
+  margin-bottom: 16px !important;
+  color: rgb(255 255 255) !important;
+}
+
+.jodit-dark .jodit-wysiwyg h1,
+.jodit-dark .jodit-wysiwyg h2,
+.jodit-dark .jodit-wysiwyg h3,
+.jodit-dark .jodit-wysiwyg h4,
+.jodit-dark .jodit-wysiwyg h5,
+.jodit-dark .jodit-wysiwyg h6 {
+  color: rgb(34, 197, 94) !important;
+  margin-bottom: 12px !important;
+  margin-top: 24px !important;
+}
+
+.jodit-dark .jodit-status-bar {
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%) !important;
+  border-top: 2px solid #4B5563 !important;
+  color: rgb(156 163 175) !important;
+  padding: 8px 16px !important;
+  font-size: 12px !important;
+}
+
+.jodit-dark .jodit-status-bar-words-count,
+.jodit-dark .jodit-status-bar-chars-count {
+  color: rgb(34, 197, 94) !important;
+  font-weight: 600 !important;
+}
+
+/* Light Theme Enhancements */
+.jodit-light .jodit-container {
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%) !important;
+  border: 2px solid #e5e7eb !important;
+}
+
+.jodit-light .jodit-toolbar-editor-collection {
+  background: linear-gradient(135deg, #f3f4f6 0%, #f9fafb 100%) !important;
+  border-bottom: 2px solid #e5e7eb !important;
+  padding: 12px 16px !important;
+}
+
+.jodit-light .jodit-toolbar-button {
+  color: rgb(75 85 99) !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+  margin: 2px !important;
+  transition: all 0.2s ease-in-out !important;
+  background: transparent !important;
+}
+
+.jodit-light .jodit-toolbar-button:hover {
+  background: rgba(34, 197, 94, 0.1) !important;
+  color: rgb(34, 197, 94) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.2) !important;
+}
+
+.jodit-light .jodit-toolbar-button.jodit-toolbar-button_active {
+  background: rgba(34, 197, 94, 0.2) !important;
+  color: rgb(34, 197, 94) !important;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3) !important;
+}
+
+.jodit-light .jodit-workplace {
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%) !important;
+  padding: 0 !important;
+}
+
+.jodit-light .jodit-wysiwyg {
+  background: transparent !important;
+  color: rgb(17 24 39) !important;
+  padding: 24px !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  min-height: 300px !important;
+  border: none !important;
+}
+
+.jodit-light .jodit-wysiwyg:focus {
+  outline: none !important;
+  background: transparent !important;
+}
+
+.jodit-light .jodit-wysiwyg p {
+  margin-bottom: 16px !important;
+  color: rgb(17 24 39) !important;
+}
+
+.jodit-light .jodit-wysiwyg h1,
+.jodit-light .jodit-wysiwyg h2,
+.jodit-light .jodit-wysiwyg h3,
+.jodit-light .jodit-wysiwyg h4,
+.jodit-light .jodit-wysiwyg h5,
+.jodit-light .jodit-wysiwyg h6 {
+  color: rgb(34, 197, 94) !important;
+  margin-bottom: 12px !important;
+  margin-top: 24px !important;
+}
+
+.jodit-light .jodit-status-bar {
+  background: linear-gradient(135deg, #f3f4f6 0%, #f9fafb 100%) !important;
+  border-top: 2px solid #e5e7eb !important;
+  color: rgb(107 114 128) !important;
+  padding: 8px 16px !important;
+  font-size: 12px !important;
+}
+
+.jodit-light .jodit-status-bar-words-count,
+.jodit-light .jodit-status-bar-chars-count {
+  color: rgb(34, 197, 94) !important;
+  font-weight: 600 !important;
+}
+
+/* Custom placeholder styling */
+.jodit-wysiwyg[data-placeholder]:empty:before {
+  content: attr(data-placeholder) !important;
+  color: rgb(156 163 175) !important;
+  font-style: italic !important;
+  opacity: 0.7 !important;
+}
+
+/* Responsive toolbar */
+@media (max-width: 768px) {
+  .jodit-toolbar-editor-collection {
+    padding: 8px 12px !important;
+  }
+  
+  .jodit-toolbar-button {
+    padding: 6px !important;
+    margin: 1px !important;
+  }
+  
+  .jodit-wysiwyg {
+    padding: 16px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Editor wrapper styling */
+.editor-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.editor-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+  border-radius: 12px 12px 0 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.editor-wrapper:focus-within::before {
+  opacity: 1;
+}
+
+/* Animation for editor loading */
+.jodit-container {
+  animation: fadeInUp 0.3s ease-out !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Blog Detail Page Enhancements */
+.prose {
+  line-height: 1.75;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  scroll-margin-top: 6rem;
+  position: relative;
+}
+
+.prose h1:hover .heading-link,
+.prose h2:hover .heading-link,
+.prose h3:hover .heading-link,
+.prose h4:hover .heading-link,
+.prose h5:hover .heading-link,
+.prose h6:hover .heading-link {
+  opacity: 1;
+}
+
+.prose .heading-link {
+  position: absolute;
+  left: -1.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  color: #10b981;
+  text-decoration: none;
+}
+
+.prose blockquote {
+  border-left: 4px solid #10b981;
+  background: rgba(16, 185, 129, 0.05);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0.5rem;
+}
+
+.prose code {
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose pre {
+  background: #1f2937;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: #f9fafb;
+}
+
+.prose img {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  margin: 2rem auto;
+}
+
+.prose table {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.prose thead {
+  background: #f9fafb;
+}
+
+.prose th {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Dark mode prose adjustments */
+.dark .prose blockquote {
+  background: rgba(16, 185, 129, 0.1);
+  border-left-color: #10b981;
+}
+
+.dark .prose code {
+  background: rgba(16, 185, 129, 0.2);
+  color: #d1fae5;
+}
+
+.dark .prose table {
+  border-color: #374151;
+}
+
+.dark .prose thead {
+  background: #374151;
+}
+
+.dark .prose th {
+  color: #f9fafb;
+}
+
+.dark .prose td {
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+/* Smooth scrolling for anchors */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Blog from '@/models/Blog';
 import { getCurrentUser } from '@/lib/auth';
+import { generateSlug, generateUniqueSlug } from '@/lib/utils/slug';
 
 // Get all blogs
 export async function GET(req: NextRequest) {
@@ -70,8 +71,16 @@ export async function POST(req: NextRequest) {
       );
     }
     
+    // Generate unique slug from title
+    const baseSlug = generateSlug(title);
+    const slug = await generateUniqueSlug(baseSlug, async (slug: string) => {
+      const existingBlog = await Blog.findOne({ slug });
+      return !!existingBlog;
+    });
+    
     const blog = await Blog.create({
       title,
+      slug,
       author: author || user.name,
       shortDescription,
       category,

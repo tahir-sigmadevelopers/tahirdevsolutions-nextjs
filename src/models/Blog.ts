@@ -4,6 +4,7 @@ import { IComment } from './Comment';
 
 export interface IBlog extends Document {
   title: string;
+  slug: string;
   author: string;
   shortDescription: string;
   category: ICategory['_id'];
@@ -20,6 +21,11 @@ export interface IBlog extends Document {
 
 const blogSchema = new Schema<IBlog>({
   title: String,
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   author: {
     type: String,
     default: 'Mohammad Tahir',
