@@ -28,7 +28,7 @@ const blogSchema = new Schema<IBlog>({
   },
   author: {
     type: String,
-    default: 'Mohammad Tahir',
+    default: 'Muhammad Tahir',
   },
   shortDescription: String,
   category: {

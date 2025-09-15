@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
     
     const newComment = await Comment.create({
       blog,
-      user: currentUser?.id || null,
+      user: (currentUser as any)?.id || null,
       name,
       email,
       comment,
@@ -84,7 +84,11 @@ export async function POST(req: NextRequest) {
       $push: { comments: newComment._id },
     });
     
-    return NextResponse.json(newComment, { status: 201 });
+    // Populate user data before returning
+    const populatedComment = await Comment.findById(newComment._id)
+      .populate('user', 'name image');
+    
+    return NextResponse.json(populatedComment, { status: 201 });
   } catch (error) {
     console.error('Error creating comment:', error);
     return NextResponse.json(

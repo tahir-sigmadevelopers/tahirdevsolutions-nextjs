@@ -389,8 +389,8 @@ const BlogsPage = () => {
             transition={{ duration: 0.6 }}
             className={`p-12 rounded-3xl text-center ${
               darkMode 
-                ? 'bg-gradient-to-br from-gray-700 to-gray-800' 
-                : 'bg-gradient-to-br from-blue-50 to-indigo-100'
+                ? 'bg-gradient-to-br from-cyan-900/50 to-gray-800' 
+                : 'bg-gradient-to-br from-cyan-50 to-blue-100'
             }`}
           >
             <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${

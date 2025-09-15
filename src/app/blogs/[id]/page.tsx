@@ -32,13 +32,17 @@ interface Blog {
 
 interface Comment {
   _id: string;
-  content: string;
-  author: {
+  content?: string;
+  comment?: string;
+  user?: {
+    _id: string;
     name: string;
     image?: {
       url: string;
     };
   };
+  name?: string;
+  email?: string;
   createdAt: string;
 }
 
@@ -371,11 +375,9 @@ const BlogDetailPage = () => {
               {/* Meta Information */}
               <div className="flex flex-wrap items-center gap-6 mb-6">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">
-                      {blog.author.charAt(0).toUpperCase()}
-                    </span>
-                  </div>
+                  
+                  <img className='w-14 h-14 rounded-full bg-gradient-to-r flex items-center justify-center' src="/tahir - about.png" alt="" />
+               
                   <div>
                     <p className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                       {blog.author}
@@ -542,7 +544,7 @@ const BlogDetailPage = () => {
                 <button
                   type="submit"
                   disabled={submittingComment || !newComment.trim() || !commentName.trim() || !commentEmail.trim()}
-                  className="px-6 py-3 bg-green-500 text-white font-semibold rounded-xl hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-gray-900 text-white font-semibold rounded-xl hover:from-cyan-600 hover:to-gray-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {submittingComment ? 'Posting...' : 'Post Comment'}
                 </button>
@@ -567,22 +569,35 @@ const BlogDetailPage = () => {
                       className={`p-6 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-sm border ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}
                     >
                       <div className="flex items-start space-x-4">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
-                          <span className="text-white font-semibold text-sm">
-                            {comment?.name?.charAt(0).toUpperCase() || 'A'}
-                          </span>
+                        {/* User Avatar */}
+                        <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                          {comment?.user?.image?.url ? (
+                            <Image
+                              src={comment.user.image.url}
+                              alt={comment.user.name || comment.name || 'User'}
+                              width={40}
+                              height={40}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
+                              <span className="text-white font-semibold text-sm">
+                                {(comment?.user?.name || comment?.name)?.charAt(0).toUpperCase() || 'A'}
+                              </span>
+                            </div>
+                          )}
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-2">
                             <h4 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                              {comment?.name || 'Anonymous'}
+                              {comment?.user?.name || comment?.name || 'Anonymous'}
                             </h4>
                             <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                               {formatDate(comment?.createdAt)}
                             </span>
                           </div>
                           <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                            {comment?.comment}
+                            {comment?.comment || comment?.content}
                           </p>
                         </div>
                       </div>
@@ -604,10 +619,14 @@ const BlogDetailPage = () => {
                 className={`p-6 rounded-2xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg border ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}
               >
                 <div className="text-center">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white font-bold text-2xl">
-                      {blog.author.charAt(0).toUpperCase()}
-                    </span>
+                  <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 ring-4 ring-cyan-500/30">
+                    <Image
+                      src="/tahir - about.png"
+                      alt="Muhammad Tahir"
+                      width={80}
+                      height={80}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <h3 className={`text-lg font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                     {blog.author}
@@ -623,10 +642,10 @@ const BlogDetailPage = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="p-6 rounded-2xl bg-gradient-to-br from-green-500 to-blue-600 text-white shadow-lg"
+                className="p-6 rounded-2xl bg-gradient-to-br from-cyan-500 to-gray-900 text-white shadow-lg"
               >
                 <h3 className="text-lg font-bold mb-2">Stay Updated</h3>
-                <p className="text-green-100 mb-4 text-sm">
+                <p className="text-cyan-100 mb-4 text-sm">
                   Get the latest articles delivered to your inbox.
                 </p>
                 <form onSubmit={handleNewsletterSubmit} className="space-y-3">
@@ -641,7 +660,7 @@ const BlogDetailPage = () => {
                   <button
                     type="submit"
                     disabled={subscribing}
-                    className="w-full px-4 py-2 bg-white text-green-600 font-medium rounded-lg hover:bg-gray-100 transition-colors text-sm disabled:opacity-50"
+                    className="w-full px-4 py-2 bg-white text-cyan-700 font-medium rounded-lg hover:bg-cyan-50 hover:text-cyan-800 hover:shadow-md hover:scale-105 transform transition-all duration-300 text-sm disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none"
                   >
                     {subscribing ? 'Subscribing...' : 'Subscribe'}
                   </button>

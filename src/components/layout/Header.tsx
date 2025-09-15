@@ -56,12 +56,7 @@ export default function Header() {
           />
 
           <span
-            className="px-6 py-3 bg-gradient-to-r from-gray-300 to-cyan-600 
-             bg-clip-text text-transparent 
-             hover:from-gray-600 hover:to-cyan-500
-             font-semibold rounded-xl transition-all duration-300 
-             disabled:opacity-50 disabled:cursor-not-allowed 
-             shadow-lg hover:shadow-xl"
+            className="px-6 py-3 bg-gradient-to-r from-gray-300 to-cyan-600 bg-clip-text text-transparent hover:from-gray-600 hover:to-cyan-500 font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
           >
             Tahir Dev Solutions
           </span>
