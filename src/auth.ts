@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import connectDB from '@/lib/db';
 import User from '@/models/User';
+import { AUTH_CONFIG } from '@/config/database';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -69,7 +70,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
-  secret: process.env.NEXTAUTH_SECRET || 'your-secret-key-change-in-production',
+  secret: AUTH_CONFIG.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);

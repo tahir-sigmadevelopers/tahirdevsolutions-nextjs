@@ -11,6 +11,7 @@ const AboutPage = () => {
   const { darkMode } = useSelector((state: RootState) => state.theme);
 
   const skills = [
+    { name: 'Webflow', level: 95 },
     { name: 'React.js', level: 95 },
     { name: 'Next.js', level: 90 },
     { name: 'Node.js', level: 88 },
@@ -21,7 +22,6 @@ const AboutPage = () => {
     { name: 'Bootstrap', level: 88 },
     { name: 'React Native', level: 75 },
     { name: 'Django', level: 70 },
-    { name: 'C# Software Development', level: 65 },
     { name: 'REST APIs', level: 90 },
     { name: 'Git/GitHub', level: 85 },
     { name: 'Vercel/Netlify/Render', level: 88 },
@@ -71,8 +71,8 @@ const AboutPage = () => {
   const education = [
     {
       degree: 'Bachelor of Computer Science',
-      institution: 'Virtual University of Pakistan',
-      period: '2019 - 2023',
+      institution: 'Bahauddin Zakariya University Multan of Pakistan - BZU',
+      period: '2021 - 2025',
       description: 'Focused on Software Engineering, Web Development, App Development, Algorithms, OA, Networking, cyber security, and Data Structures.'
     },
     {
@@ -120,8 +120,8 @@ const AboutPage = () => {
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} pt-20`}>
       {/* Hero Section */}
-      <section className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
-        <div className="container mx-auto px-6 md:px-12">
+      <section className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg transition-all duration-300 hover:shadow-cyan-500/10`}>
+        <div className="container mx-auto px-6 md:px-12 shadow-lg transition-all py-20 duration-300 rounded-xl hover:shadow-cyan-500/20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -145,7 +145,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              className="relative  transition-all duration-300 rounded-full"
             >
               <div className="relative w-80 h-80 mx-auto">
                 {/* Gradient background */}
@@ -155,7 +155,7 @@ const AboutPage = () => {
                   }`}></div>
 
                 {/* Profile image */}
-                <div className="relative w-full h-full rounded-full  overflow-hidden border-4 border-white/20 shadow-2xl">
+                <div className="relative w-full h-full rounded-full  hover:shadow-cyan-500/30 overflow-hidden border-4 border-white/20 shadow-2xl">
                   <Image
                     src="/tahir - about.png"
                     alt="Muhammad Tahir"
@@ -188,7 +188,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-6"
+              className="space-y-6 transition-all duration-300 rounded-xl p-6 "
             >
               <h2 className={`text-4xl font-bold ${darkMode ? 'text-cyan-400' : 'text-blue-500'
                 }`}>
@@ -212,7 +212,7 @@ const AboutPage = () => {
 
               {/* Skills tags */}
               <div className="flex flex-wrap gap-3 mt-6">
-                {['MERN Stack', 'React', 'Node.js', 'MongoDB', 'Laravel', 'Next.js'].map((skill, index) => (
+                {['MERN Stack',, 'Webflow', 'React', 'Node.js', 'MongoDB', 'Next.js'].map((skill, index) => (
                   <motion.span
                     key={skill}
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -231,8 +231,8 @@ const AboutPage = () => {
       </section>
 
       {/* Technical Skills Section */}
-      <section className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
-        <div className="container mx-auto px-6 md:px-12">
+      <section className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} shadow-lg transition-all duration-300 hover:shadow-cyan-500/10`}>
+        <div className="container mx-auto px-6 md:px-12 shadow-lg md:py-20 transition-all duration-300 rounded-xl hover:shadow-cyan-500/20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -258,7 +258,7 @@ const AboutPage = () => {
               <motion.div
                 key={skill.name}
                 variants={itemVariants}
-                className={`p-6 rounded-xl transition-all duration-300 hover:scale-105 ${darkMode
+                className={`p-6 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-cyan-500/20 ${darkMode
                   ? 'bg-gray-800 hover:bg-gray-700'
                   : 'bg-white hover:shadow-lg'
                   }`}
@@ -293,8 +293,8 @@ const AboutPage = () => {
       </section>
 
       {/* Soft Skills Section */}
-      <section className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
-        <div className="container mx-auto px-6 md:px-12">
+      <section className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg transition-all duration-300 hover:shadow-cyan-500/10`}>
+        <div className="container mx-auto px-6 md:px-12 md:py-20 shadow-lg transition-all duration-300 rounded-xl hover:shadow-cyan-500/20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -324,7 +324,7 @@ const AboutPage = () => {
                 key={skill.title}
                 variants={itemVariants}
                 whileHover={{ y: -10, scale: 1.02 }}
-                className={`p-8 rounded-2xl text-center transition-all duration-300 ${darkMode
+                className={`p-8 rounded-2xl text-center transition-all duration-300 shadow-lg hover:shadow-cyan-500/20 ${darkMode
                   ? 'bg-gray-700 hover:bg-gray-600 hover:shadow-2xl hover:shadow-cyan-500/20'
                   : 'bg-gray-50 hover:bg-white hover:shadow-2xl hover:shadow-gray-300/50'
                   }`}
@@ -350,8 +350,8 @@ const AboutPage = () => {
       </section>
 
       {/* Education Section */}
-      <section className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
-        <div className="container mx-auto px-6 md:px-12">
+      <section className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} shadow-lg transition-all duration-300 hover:shadow-cyan-500/10`}>
+        <div className="container mx-auto px-6 md:py-20 md:px-12 shadow-lg transition-all duration-300 rounded-xl hover:shadow-cyan-500/20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -380,17 +380,17 @@ const AboutPage = () => {
               <motion.div
                 key={edu.degree}
                 variants={itemVariants}
-                className={`p-8 rounded-2xl transition-all duration-300 hover:scale-102 ${darkMode
+                className={`p-8 rounded-2xl transition-all duration-300 hover:scale-102 shadow-lg hover:shadow-cyan-500/20 ${darkMode
                   ? 'bg-gray-800 hover:bg-gray-700'
                   : 'bg-white hover:shadow-lg'
                   }`}
               >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 ">
                   <h3 className={`text-2xl font-bold mb-2 md:mb-0 ${darkMode ? 'text-white' : 'text-gray-900'
                     }`}>
                     {edu.degree}
                   </h3>
-                  <span className="px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium">
+                  <span className="px-4 py-2 rounded-full shadow-md text-sm font-medium bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30">
                     {edu.period}
                   </span>
                 </div>
@@ -408,9 +408,9 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Download Resume Section */}
-      <section className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
-        <div className="container mx-auto px-6 md:px-12">
+      {/* Client CTA Section */}
+      <section className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg transition-all duration-300 hover:shadow-cyan-500/10`}>
+        <div className="container md:py-20 mx-auto px-6 md:px-12 shadow-lg transition-all duration-300 rounded-xl hover:shadow-cyan-500/20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -420,37 +420,54 @@ const AboutPage = () => {
           >
             <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'
               }`}>
-              Download My Resume
+              Let's Build Something Great Together
             </h2>
             <p className={`text-lg mb-8 max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'
               }`}>
-              Get a comprehensive overview of my skills, experience, and qualifications.
+              Ready to turn your vision into reality? Let's discuss your project and create innovative solutions that drive results.
             </p>
-            <motion.a
-              href="/Muhammad_Tahir_Resume.pdf"
-              download
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Download Complete Resume
-            </motion.a>
+            <div className="flex flex-wrap justify-center items-center gap-4">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href="/contact"
+                  className={`inline-flex items-center px-8 py-4 rounded-xl font-semibold shadow-lg transition-all duration-300 text-white ${
+                    darkMode
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                  }`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  Start a Conversation
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href="/services"
+                  className={`px-8 py-4 rounded-xl font-semibold border-2 transition-all duration-300 ${
+                    darkMode
+                      ? 'border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white'
+                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  View Services
+                </Link>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
-        <div className="container mx-auto px-6 md:px-12">
+      <section className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} shadow-lg transition-all duration-300 hover:shadow-cyan-500/10`}>
+        <div className="container md:py-20 mx-auto px-6 md:px-12 shadow-lg transition-all duration-300 rounded-xl hover:shadow-cyan-500/20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`p-12 rounded-3xl text-center ${darkMode
+            className={`p-12 rounded-3xl text-center shadow-lg transition-all duration-300 hover:shadow-cyan-500/20 ${darkMode
               ? 'bg-gradient-to-br from-gray-800 to-gray-700'
               : 'bg-gradient-to-br from-blue-50 to-indigo-100'
               }`}
@@ -468,7 +485,11 @@ const AboutPage = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   href="/contact"
-                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                  className={`px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 text-white ${
+                    darkMode
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                  }`}
                 >
                   Get In Touch
                 </Link>
@@ -477,7 +498,7 @@ const AboutPage = () => {
                 <Link
                   href="/projects"
                   className={`px-8 py-3 rounded-xl font-semibold border-2 transition-all duration-300 ${darkMode
-                    ? 'border-gray-600 text-white hover:bg-gray-600'
+                    ? 'border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white'
                     : 'border-gray-300 text-gray-700 hover:bg-gray-50'
                     }`}
                 >

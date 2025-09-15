@@ -388,7 +388,11 @@ const BlogsPage = () => {
                   type="submit"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                  className={`px-6 py-3 rounded-lg font-semibold shadow-lg transition-all duration-300 text-white ${
+                    darkMode
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                  }`}
                 >
                   Subscribe
                 </motion.button>

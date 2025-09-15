@@ -15,6 +15,8 @@ interface Project {
   createdAt: string;
   image: ProjectImage;
   featured: boolean;
+  technologies?: string[];
+  status?: string;
 }
 
 interface ProjectState {
@@ -56,9 +58,20 @@ export const getProjects = createAsyncThunk(
         url += '&featured=true';
       }
       
+      console.log('🚀 Redux: Calling API', url);
+      
       const { data } = await axios.get(url);
+      
+      console.log('📊 Redux: API Response', {
+        hasProjects: !!data.projects,
+        projectsCount: data.projects?.length || 0,
+        hasPagination: !!data.pagination,
+        response: data
+      });
+      
       return data;
     } catch (error: any) {
+      console.error('❌ Redux: API Error', error);
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
@@ -133,9 +146,10 @@ const projectSlice = createSlice({
         state.loading = true;
       })
       .addCase(getProjects.fulfilled, (state, action) => {
+        console.log('✅ Redux: getProjects fulfilled', action.payload);
         state.loading = false;
-        state.projects = action.payload.projects;
-        state.pagination = action.payload.pagination;
+        state.projects = action.payload.projects || [];
+        state.pagination = action.payload.pagination || initialState.pagination;
       })
       .addCase(getProjects.rejected, (state, action) => {
         state.loading = false;

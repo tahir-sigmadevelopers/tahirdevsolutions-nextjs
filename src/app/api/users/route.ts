@@ -6,26 +6,42 @@ import { getCurrentUser } from '@/lib/auth';
 // Get all users (admin only)
 export async function GET() {
   try {
-    const currentUser = await getCurrentUser();
+    console.log('🔍 Users API: Starting request');
     
-    if (!currentUser || currentUser.role !== 'admin') {
+    const currentUser = await getCurrentUser();
+    console.log('👤 Current user:', currentUser ? { id: currentUser.id, role: (currentUser as any).role } : 'No user found');
+    
+    if (!currentUser) {
+      console.log('❌ Users API: No authenticated user');
       return NextResponse.json(
-        { message: 'Not authorized' },
+        { message: 'Not authenticated' },
         { status: 401 }
       );
     }
     
+    if ((currentUser as any).role !== 'admin') {
+      console.log('❌ Users API: User is not admin, role:', (currentUser as any).role);
+      return NextResponse.json(
+        { message: 'Not authorized - admin access required' },
+        { status: 403 }
+      );
+    }
+    
+    console.log('🔗 Users API: Connecting to database');
     await connectDB();
     
+    console.log('📊 Users API: Fetching users');
     const users = await User.find()
       .select('-password')
       .sort({ joinedAt: -1 });
+      
+    console.log(`✅ Users API: Found ${users.length} users`);
     
     return NextResponse.json(users);
   } catch (error) {
-    console.error('Error fetching users:', error);
+    console.error('❌ Users API Error:', error);
     return NextResponse.json(
-      { message: 'Failed to fetch users' },
+      { message: 'Failed to fetch users', error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

@@ -39,7 +39,7 @@ export async function PUT(
   try {
     const user = await getCurrentUser();
     
-    if (!user || user.role !== 'admin') {
+    if (!user || (user as any).role !== 'admin') {
       return NextResponse.json(
         { message: 'Not authorized' },
         { status: 401 }
@@ -103,7 +103,7 @@ export async function DELETE(
   try {
     const user = await getCurrentUser();
     
-    if (!user || user.role !== 'admin') {
+    if (!user || (user as any).role !== 'admin') {
       return NextResponse.json(
         { message: 'Not authorized' },
         { status: 401 }

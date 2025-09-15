@@ -11,6 +11,8 @@ export interface IProject extends Document {
     url: string;
   };
   featured: boolean;
+  technologies?: string[];
+  status?: string;
 }
 
 const projectSchema = new Schema<IProject>({
@@ -46,6 +48,14 @@ const projectSchema = new Schema<IProject>({
   featured: {
     type: Boolean,
     default: false,
+  },
+  technologies: {
+    type: [String],
+    default: [],
+  },
+  status: {
+    type: String,
+    default: 'Completed',
   },
 });
 

@@ -386,11 +386,10 @@ const ServicesPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`p-12 rounded-3xl text-center ${
-              darkMode 
-                ? 'bg-gradient-to-br from-gray-700 to-gray-800' 
-                : 'bg-gradient-to-br from-blue-50 to-indigo-100'
-            }`}
+            className={`p-12 rounded-3xl text-center shadow-lg transition-all duration-300 hover:shadow-cyan-500/20 ${darkMode
+              ? 'bg-gradient-to-br from-gray-800 to-gray-700'
+              : 'bg-gradient-to-br from-blue-50 to-indigo-100'
+              }`}
           >
             <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
               darkMode ? 'text-white' : 'text-gray-900'
@@ -436,6 +435,8 @@ const ServicesPage = () => {
           </motion.div>
         </div>
       </section>
+
+  
     </div>
   );
 };

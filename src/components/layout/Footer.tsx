@@ -118,12 +118,12 @@ export default function Footer() {
             © 2025 Muhammad Tahir - Full Stack Developer. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex items-center space-x-6">
-            <Link href="/Muhammad_Tahir_Resume.pdf" download className="text-gray-400 hover:text-white text-sm transition-colors">
-              Download Resume
+            <Link href="/services" className="text-gray-400 hover:text-white text-sm transition-colors">
+              Our Services
             </Link>
             <span className="text-gray-600">•</span>
             <Link href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Hire Me
+              Start Project
             </Link>
           </div>
         </div>

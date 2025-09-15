@@ -38,23 +38,53 @@ const DashboardPage = () => {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
-      const [projectsRes, blogsRes, testimonialsRes, usersRes] = await Promise.all([
+      
+      // Fetch data with individual error handling
+      const results = await Promise.allSettled([
         axios.get('/api/projects'),
         axios.get('/api/blogs'),
         axios.get('/api/testimonials'),
         axios.get('/api/users')
       ]);
 
+      // Extract successful responses
+      const [projectsRes, blogsRes, testimonialsRes, usersRes] = results;
+      
       setDashboardStats({
-        projects: projectsRes.data.pagination?.total || projectsRes.data.projects?.length || 0,
-        blogs: blogsRes.data.pagination?.total || blogsRes.data.blogs?.length || 0,
-        testimonials: testimonialsRes.data.length || 0,
-        users: usersRes.data.length || 0
+        projects: projectsRes.status === 'fulfilled' 
+          ? (projectsRes.value.data.pagination?.total || projectsRes.value.data.projects?.length || 0)
+          : 0,
+        blogs: blogsRes.status === 'fulfilled' 
+          ? (blogsRes.value.data.pagination?.total || blogsRes.value.data.blogs?.length || 0)
+          : 0,
+        testimonials: testimonialsRes.status === 'fulfilled' 
+          ? (testimonialsRes.value.data.length || 0)
+          : 0,
+        users: usersRes.status === 'fulfilled' 
+          ? (usersRes.value.data.length || 0)
+          : 0
       });
 
-      // Get recent items
-      setRecentBlogs(blogsRes.data.blogs?.slice(0, 3) || []);
-      setRecentProjects(projectsRes.data.projects?.slice(0, 3) || []);
+      // Get recent items from successful responses
+      setRecentBlogs(
+        blogsRes.status === 'fulfilled' 
+          ? (blogsRes.value.data.blogs?.slice(0, 3) || [])
+          : []
+      );
+      setRecentProjects(
+        projectsRes.status === 'fulfilled' 
+          ? (projectsRes.value.data.projects?.slice(0, 3) || [])
+          : []
+      );
+      
+      // Log any failed requests for debugging
+      results.forEach((result, index) => {
+        if (result.status === 'rejected') {
+          const endpoints = ['/api/projects', '/api/blogs', '/api/testimonials', '/api/users'];
+          console.warn(`Failed to fetch ${endpoints[index]}:`, result.reason?.response?.data || result.reason?.message);
+        }
+      });
+      
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {
@@ -87,13 +117,13 @@ const DashboardPage = () => {
     ...recentBlogs.slice(0, 2).map((blog: any) => ({
       action: 'Blog post published',
       item: blog.title,
-      time: new Date(blog.createdAt).toLocaleDateString(),
+      time: new Date(blog.createdAt || blog.updatedAt || Date.now()).toLocaleDateString(),
       type: 'blog'
     })),
     ...recentProjects.slice(0, 2).map((project: any) => ({
       action: 'New project added',
       item: project.title,
-      time: new Date(project.createdAt).toLocaleDateString(),
+      time: new Date(project.createdAt || project.updatedAt || Date.now()).toLocaleDateString(),
       type: 'project'
     }))
   ];
@@ -372,7 +402,11 @@ const DashboardPage = () => {
               <div className="flex flex-wrap justify-center gap-4">
                 <Link
                   href="/projects"
-                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-200"
+                  className={`px-6 py-3 font-semibold rounded-lg shadow-lg transition-all duration-200 text-white ${
+                    darkMode
+                      ? 'bg-gradient-to-r from-cyan-500 to-gray-900 hover:shadow-cyan-500/30'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-blue-500/30'
+                  }`}
                 >
                   View Portfolio
                 </Link>
@@ -380,7 +414,7 @@ const DashboardPage = () => {
                   href="/contact"
                   className={`px-6 py-3 font-semibold rounded-lg border-2 transition-all duration-200 ${
                     darkMode
-                      ? 'border-gray-600 text-white hover:bg-gray-700'
+                      ? 'border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white'
                       : 'border-gray-300 text-gray-700 hover:bg-gray-50'
                   }`}
                 >

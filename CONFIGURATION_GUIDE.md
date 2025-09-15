@@ -38,17 +38,17 @@ export const AUTH_CONFIG = {
 // 📸 Image Upload Configuration (Cloudinary)
 export const CLOUDINARY_CONFIG = {
   // 🖼️ REPLACE THESE with your Cloudinary credentials
-  CLOUD_NAME: 'your-cloudinary-cloud-name',
-  API_KEY: 'your-cloudinary-api-key',
-  API_SECRET: 'your-cloudinary-api-secret',
+  CLOUD_NAME: 'dkywvlpkj',
+  API_KEY: '136987479159238',
+  API_SECRET: 'iEmsLEbLwN4sCCIt5TeCzF14x1c',
 };
 
 // 📧 Email Configuration (for contact forms and password reset)
 export const EMAIL_CONFIG = {
   // 📮 REPLACE THESE with your email service credentials
   SERVICE: 'gmail',
-  USERNAME: 'your-email@gmail.com',
-  PASSWORD: 'your-app-password',
+  USERNAME: 'tahirsultanofficial@gmail.com',
+  PASSWORD: 'zwnajhzdgfcrfdct',
   SERVER: 'smtp.gmail.com',
 };
 ```

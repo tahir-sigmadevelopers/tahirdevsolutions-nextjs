@@ -5,6 +5,8 @@ export interface ITestimonial extends Document {
   description: string;
   user?: IUser['_id'];
   approved: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const testimonialSchema = new Schema<ITestimonial>({
@@ -20,6 +22,8 @@ const testimonialSchema = new Schema<ITestimonial>({
     type: Boolean,
     default: false,
   },
+}, {
+  timestamps: true, // This adds createdAt and updatedAt
 });
 
 const Testimonial = mongoose.models.Testimonial || mongoose.model<ITestimonial>('Testimonial', testimonialSchema);

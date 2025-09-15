@@ -27,52 +27,54 @@ export default function Home() {
   };
 
   return (
-    <div className={darkMode ? "bg-gray-900" : "bg-white"}>
+    <div className={`relative ${darkMode ? "bg-gray-900" : "bg-white"}`}>
       <ParticlesComponent />
       
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={sectionVariants}
-      >
-        <HeroSection />
-      </motion.div>
-      
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <ProjectSection />
-      </motion.div>
-      
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <ServicesSection />
-      </motion.div>
-      
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <ExperienceSection />
-      </motion.div>
-      
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <TestimonialsSection />
-      </motion.div>
+      <div className="relative z-10">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={sectionVariants}
+        >
+          <HeroSection />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={sectionVariants}
+        >
+          <ProjectSection />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={sectionVariants}
+        >
+          <ServicesSection />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={sectionVariants}
+        >
+          <ExperienceSection />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={sectionVariants}
+        >
+          <TestimonialsSection />
+        </motion.div>
+      </div>
     </div>
   );
 }

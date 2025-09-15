@@ -208,17 +208,16 @@ const HeroSection = () => {
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <a
-                  href="/Muhammad_Tahir_Resume.pdf"
-                  download
+                <Link
+                  href="/contact"
                   className={`px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 ${
                     darkMode
                       ? "bg-gray-900 border border-cyan-500 text-cyan-300 hover:bg-gray-800 hover:shadow-cyan-500/30"
                       : "bg-white text-gray-800 border hover:bg-gray-50 hover:shadow-gray-300/30"
                   }`}
                 >
-                  Download Resume
-                </a>
+                  Get In Touch
+                </Link>
               </motion.div>
             </motion.div>
             
