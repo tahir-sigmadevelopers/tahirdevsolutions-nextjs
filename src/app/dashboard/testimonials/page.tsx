@@ -46,7 +46,7 @@ const TestimonialsPage = () => {
 
   const handleToggleApproval = async (testimonialId: string, currentStatus: boolean) => {
     try {
-      await axios.patch(`/api/testimonials/${testimonialId}`, {
+      await axios.put(`/api/testimonials/${testimonialId}`, {
         approved: !currentStatus
       });
       setTestimonials(testimonials.map((testimonial: any) => 
@@ -88,7 +88,7 @@ const TestimonialsPage = () => {
             </h1>
             <Link
               href="/dashboard/testimonials/new"
-              className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+              className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-gray-900 text-white rounded-lg hover:from-cyan-600 hover:to-gray-800 transition-all duration-300 shadow-lg hover:shadow-cyan-500/30"
             >
               Add New Testimonial
             </Link>
@@ -119,7 +119,7 @@ const TestimonialsPage = () => {
                   <div className="mt-6">
                     <Link
                       href="/dashboard/testimonials/new"
-                      className="inline-flex items-center px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+                      className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-cyan-500 to-gray-900 text-white rounded-lg hover:from-cyan-600 hover:to-gray-800 transition-all duration-300 shadow-lg hover:shadow-cyan-500/30"
                     >
                       <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -169,23 +169,23 @@ const TestimonialsPage = () => {
                       <div className="flex flex-col space-y-2 ml-4">
                         <button
                           onClick={() => handleToggleApproval(testimonial._id, testimonial.approved)}
-                          className={`px-4 py-2 text-sm rounded transition-colors ${
+                          className={`px-4 py-2 text-sm rounded transition-all duration-300 shadow-lg hover:shadow-cyan-500/30 ${
                             testimonial.approved
-                              ? `${darkMode ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-yellow-500 hover:bg-yellow-600'} text-white`
-                              : `${darkMode ? 'bg-green-600 hover:bg-green-700' : 'bg-green-500 hover:bg-green-600'} text-white`
+                              ? 'bg-gradient-to-r from-amber-500 to-amber-700 text-white hover:from-amber-600 hover:to-amber-800'
+                              : 'bg-gradient-to-r from-green-500 to-green-700 text-white hover:from-green-600 hover:to-green-800'
                           }`}
                         >
                           {testimonial.approved ? 'Unapprove' : 'Approve'}
                         </button>
                         <Link
                           href={`/dashboard/testimonials/${testimonial._id}`}
-                          className={`px-4 py-2 text-sm rounded text-center ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'} text-white transition-colors`}
+                          className="px-4 py-2 text-sm text-center bg-gradient-to-r from-cyan-500 to-gray-900 text-white rounded transition-all duration-300 shadow-lg hover:shadow-cyan-500/30 hover:from-cyan-600 hover:to-gray-800"
                         >
                           Edit
                         </Link>
                         <button
                           onClick={() => handleDeleteTestimonial(testimonial._id)}
-                          className={`px-4 py-2 text-sm rounded ${darkMode ? 'bg-red-600 hover:bg-red-700' : 'bg-red-500 hover:bg-red-600'} text-white transition-colors`}
+                          className="px-4 py-2 text-sm bg-gradient-to-r from-red-500 to-red-700 text-white rounded transition-all duration-300 shadow-lg hover:shadow-red-500/30 hover:from-red-600 hover:to-red-800"
                         >
                           Delete
                         </button>

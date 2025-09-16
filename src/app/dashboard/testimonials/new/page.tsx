@@ -64,7 +64,11 @@ const AddTestimonialPage = () => {
             </h1>
             <Link
               href="/dashboard/testimonials"
-              className={`px-4 py-2 rounded-lg ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-200 hover:bg-gray-300'} transition-colors`}
+              className={`px-4 py-2 rounded-lg transition-all duration-300 ${
+                darkMode 
+                  ? 'bg-gradient-to-r from-gray-700 to-gray-900 text-white hover:from-gray-600 hover:to-gray-800' 
+                  : 'bg-gradient-to-r from-gray-300 to-gray-500 text-gray-900 hover:from-gray-400 hover:to-gray-600'
+              }`}
             >
               Back to Testimonials
             </Link>
@@ -158,8 +162,10 @@ const AddTestimonialPage = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors ${
-                    isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                  className={`px-6 py-2 bg-gradient-to-r from-cyan-500 to-gray-900 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-500/30 ${
+                    isSubmitting 
+                      ? 'opacity-70 cursor-not-allowed' 
+                      : 'hover:from-cyan-600 hover:to-gray-800'
                   }`}
                 >
                   {isSubmitting ? 'Saving...' : 'Save Testimonial'}
@@ -173,10 +179,11 @@ const AddTestimonialPage = () => {
                     role: '',
                     imageUrl: ''
                   })}
-                  className={`px-6 py-2 ${darkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600' 
-                    : 'bg-gray-200 hover:bg-gray-300'
-                  } rounded-lg transition-colors`}
+                  className={`px-6 py-2 rounded-lg transition-all duration-300 ${
+                    darkMode 
+                      ? 'bg-gradient-to-r from-gray-700 to-gray-900 text-white hover:from-gray-600 hover:to-gray-800' 
+                      : 'bg-gradient-to-r from-gray-300 to-gray-500 text-gray-900 hover:from-gray-400 hover:to-gray-600'
+                  }`}
                 >
                   Reset
                 </button>

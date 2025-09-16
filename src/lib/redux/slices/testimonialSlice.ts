@@ -3,7 +3,11 @@ import axios from 'axios';
 
 interface Testimonial {
   _id: string;
+  name?: string;
   description: string;
+  company?: string;
+  role?: string;
+  imageUrl?: string;
   user?: {
     _id: string;
     name: string;
@@ -12,6 +16,8 @@ interface Testimonial {
     };
   };
   approved: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface TestimonialState {
@@ -31,7 +37,7 @@ const initialState: TestimonialState = {
 // Async thunks
 export const getTestimonials = createAsyncThunk(
   'testimonial/getTestimonials',
-  async (approved?: boolean, { rejectWithValue }) => {
+  async ({ approved }: { approved?: boolean } = {}, { rejectWithValue }) => {
     try {
       let url = '/api/testimonials';
       if (approved !== undefined) {
@@ -60,9 +66,15 @@ export const getTestimonial = createAsyncThunk(
 
 export const createTestimonial = createAsyncThunk(
   'testimonial/createTestimonial',
-  async (description: string, { rejectWithValue }) => {
+  async (testimonialData: { 
+    name?: string; 
+    content: string; 
+    company?: string; 
+    role?: string; 
+    imageUrl?: string 
+  }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/testimonials', { description });
+      const { data } = await axios.post('/api/testimonials', testimonialData);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -73,7 +85,17 @@ export const createTestimonial = createAsyncThunk(
 export const updateTestimonial = createAsyncThunk(
   'testimonial/updateTestimonial',
   async (
-    { id, testimonialData }: { id: string; testimonialData: { description: string; approved?: boolean } },
+    { id, testimonialData }: { 
+      id: string; 
+      testimonialData: { 
+        name?: string;
+        description?: string; 
+        company?: string;
+        role?: string;
+        imageUrl?: string;
+        approved?: boolean 
+      } 
+    },
     { rejectWithValue }
   ) => {
     try {

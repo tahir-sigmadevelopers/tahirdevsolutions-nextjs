@@ -34,30 +34,44 @@ export async function GET(req: NextRequest) {
 // Create a new testimonial
 export async function POST(req: NextRequest) {
   try {
-    const user = await getCurrentUser();
+    const user: any = await getCurrentUser();
     
     await connectDB();
     
-    const { description } = await req.json();
+    const { name, content, company, role, imageUrl } = await req.json();
     
-    if (!description) {
+    if (!content) {
       return NextResponse.json(
-        { message: 'Please provide a testimonial description' },
+        { message: 'Please provide testimonial content' },
         { status: 400 }
       );
     }
     
-    const testimonial = await Testimonial.create({
-      description,
+    const testimonialData: any = {
+      description: content,
       user: user?.id || null,
       approved: user?.role === 'admin', // Auto-approve if admin
-    });
+      name: name || '',
+      company: company || '',
+      role: role || '',
+      imageUrl: imageUrl || ''
+    };
+    
+    // Remove the conditional field additions and always include all fields
+    /*
+    if (name) testimonialData.name = name;
+    if (company) testimonialData.company = company;
+    if (role) testimonialData.role = role;
+    if (imageUrl) testimonialData.imageUrl = imageUrl;
+    */
+    
+    const testimonial = await Testimonial.create(testimonialData);
     
     return NextResponse.json(testimonial, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating testimonial:', error);
     return NextResponse.json(
-      { message: 'Failed to create testimonial' },
+      { message: 'Failed to create testimonial', error: error.message || 'Unknown error' },
       { status: 500 }
     );
   }

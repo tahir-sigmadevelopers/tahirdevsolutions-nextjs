@@ -37,7 +37,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const user = await getCurrentUser();
+    const user: any = await getCurrentUser();
     
     if (!user || user.role !== 'admin') {
       return NextResponse.json(
@@ -57,29 +57,46 @@ export async function PUT(
       );
     }
     
-    const { description, approved } = await req.json();
+    const { name, content, company, role, imageUrl, description, approved } = await req.json();
     
-    if (!description) {
+    // Use content if provided, otherwise fallback to description for backward compatibility
+    const testimonialDescription = content || description;
+    
+    if (!testimonialDescription) {
       return NextResponse.json(
         { message: 'Please provide a testimonial description' },
         { status: 400 }
       );
     }
     
+    const updateData: any = {
+      description: testimonialDescription,
+      approved: approved !== undefined ? approved : testimonial.approved,
+      name: name !== undefined ? name : testimonial.name,
+      company: company !== undefined ? company : testimonial.company,
+      role: role !== undefined ? role : testimonial.role,
+      imageUrl: imageUrl !== undefined ? imageUrl : testimonial.imageUrl,
+    };
+    
+    // Remove the conditional field additions
+    /*
+    if (name !== undefined) updateData.name = name;
+    if (company !== undefined) updateData.company = company;
+    if (role !== undefined) updateData.role = role;
+    if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
+    */
+    
     const updatedTestimonial = await Testimonial.findByIdAndUpdate(
       params.id,
-      {
-        description,
-        approved: approved !== undefined ? approved : testimonial.approved,
-      },
+      updateData,
       { new: true }
     );
     
     return NextResponse.json(updatedTestimonial);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating testimonial:', error);
     return NextResponse.json(
-      { message: 'Failed to update testimonial' },
+      { message: 'Failed to update testimonial', error: error.message || 'Unknown error' },
       { status: 500 }
     );
   }
@@ -91,7 +108,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const user = await getCurrentUser();
+    const user: any = await getCurrentUser();
     const testimonial = await Testimonial.findById(params.id);
     
     if (!testimonial) {
@@ -114,10 +131,10 @@ export async function DELETE(
     await Testimonial.findByIdAndDelete(params.id);
     
     return NextResponse.json({ message: 'Testimonial deleted successfully' });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting testimonial:', error);
     return NextResponse.json(
-      { message: 'Failed to delete testimonial' },
+      { message: 'Failed to delete testimonial', error: error.message || 'Unknown error' },
       { status: 500 }
     );
   }

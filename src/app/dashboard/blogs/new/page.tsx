@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { uploadToCloudinary } from '@/lib/cloudinary-upload';
 import toast from 'react-hot-toast';
+import { SEOAnalyzer, SEOAnalysisResult } from '@/lib/utils/seoAnalyzer';
 
 // Dynamic import for JoditEditor to avoid SSR issues
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
@@ -23,7 +24,8 @@ const AddBlogPage = () => {
     content: '',
     category: '',
     imageUrl: '',
-    author: 'Muhammad Tahir'
+    author: 'Muhammad Tahir',
+    primaryKeyword: ''
   });
   
   const [featuredImage, setFeaturedImage] = useState<File | null>(null);
@@ -53,7 +55,9 @@ const AddBlogPage = () => {
   }), [darkMode]);
   
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+  const [seoAnalysis, setSeoAnalysis] = useState<SEOAnalysisResult | null>(null);
+  const [showSeoAnalysis, setShowSeoAnalysis] = useState(false);
+
   // Fetch categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
@@ -128,6 +132,27 @@ const AddBlogPage = () => {
     }
   };
   
+  const analyzeSEO = () => {
+    if (!formData.title || !formData.shortDescription || !formData.content) {
+      toast.error('Please fill in title, description, and content to analyze SEO');
+      return;
+    }
+
+    const analyzer = new SEOAnalyzer(
+      formData.title,
+      formData.shortDescription,
+      formData.content,
+      {
+        primaryKeyword: formData.primaryKeyword,
+        slug: formData.title.toLowerCase().replace(/\s+/g, '-')
+      }
+    );
+
+    const analysis = analyzer.analyze();
+    setSeoAnalysis(analysis);
+    setShowSeoAnalysis(true);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -237,6 +262,183 @@ const AddBlogPage = () => {
             
             <div className={`p-8 rounded-2xl shadow-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} border ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
               <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Primary Keyword */}
+                <div className="space-y-2">
+                  <label className={`block text-sm font-semibold ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+                    Primary Keyword (for SEO)
+                  </label>
+                  <input
+                    type="text"
+                    name="primaryKeyword"
+                    value={formData.primaryKeyword}
+                    onChange={handleChange}
+                    placeholder="Enter your primary keyword..."
+                    className={`w-full px-4 py-3 rounded-xl ${darkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500'
+                    } border-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200`}
+                  />
+                  <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    Enter your main keyword for SEO analysis
+                  </p>
+                </div>
+
+                {/* SEO Analysis Button */}
+                <div className="flex items-center space-x-4">
+                  <button
+                    type="button"
+                    onClick={analyzeSEO}
+                    className={`px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors ${!formData.title || !formData.shortDescription || !formData.content ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={!formData.title || !formData.shortDescription || !formData.content}
+                  >
+                    Analyze SEO
+                  </button>
+                  
+                  {seoAnalysis && (
+                    <div className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      seoAnalysis.score >= 80 
+                        ? 'bg-green-100 text-green-800' 
+                        : seoAnalysis.score >= 60 
+                          ? 'bg-yellow-100 text-yellow-800' 
+                          : 'bg-red-100 text-red-800'
+                    }`}>
+                      SEO Score: {seoAnalysis.score}/100
+                    </div>
+                  )}
+                </div>
+
+                {/* SEO Analysis Results */}
+                {showSeoAnalysis && seoAnalysis && (
+                  <div className={`p-6 rounded-xl border ${darkMode ? 'bg-gray-700/50 border-gray-600' : 'bg-blue-50 border-blue-200'}`}>
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                        SEO Analysis Results
+                      </h3>
+                      <button
+                        type="button"
+                        onClick={() => setShowSeoAnalysis(!showSeoAnalysis)}
+                        className={`p-1 rounded ${darkMode ? 'hover:bg-gray-600' : 'hover:bg-gray-200'}`}
+                      >
+                        <svg className={`w-5 h-5 ${darkMode ? 'text-gray-300' : 'text-gray-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                      <div className={`p-4 rounded-lg ${darkMode ? 'bg-gray-600' : 'bg-white'}`}>
+                        <h4 className="font-medium mb-2">Overall Score</h4>
+                        <div className="flex items-center">
+                          <div className="w-16 h-16 relative">
+                            <svg className="w-16 h-16" viewBox="0 0 36 36">
+                              <path
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none"
+                                stroke={darkMode ? "#374151" : "#e5e7eb"}
+                                strokeWidth="3"
+                              />
+                              <path
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none"
+                                stroke={
+                                  seoAnalysis.score >= 80 
+                                    ? "#10B981" 
+                                    : seoAnalysis.score >= 60 
+                                      ? "#F59E0B" 
+                                      : "#EF4444"
+                                }
+                                strokeWidth="3"
+                                strokeDasharray={`${seoAnalysis.score}, 100`}
+                              />
+                              <text x="18" y="20.5" textAnchor="middle" fill={darkMode ? "#fff" : "#000"} fontSize="8" fontWeight="bold">
+                                {seoAnalysis.score}
+                              </text>
+                            </svg>
+                          </div>
+                          <div className="ml-4">
+                            <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                              {seoAnalysis.score >= 80 
+                                ? 'Excellent' 
+                                : seoAnalysis.score >= 60 
+                                  ? 'Good' 
+                                  : 'Needs Improvement'}
+                            </p>
+                            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                              Based on 8 SEO factors
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={`p-4 rounded-lg ${darkMode ? 'bg-gray-600' : 'bg-white'}`}>
+                        <h4 className="font-medium mb-2">Quick Stats</h4>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className={darkMode ? 'text-gray-300' : 'text-gray-600'}>Title Length</span>
+                            <span className={darkMode ? 'text-white' : 'text-gray-900'}>
+                              {seoAnalysis.details.title.length} chars
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className={darkMode ? 'text-gray-300' : 'text-gray-600'}>Meta Description</span>
+                            <span className={darkMode ? 'text-white' : 'text-gray-900'}>
+                              {seoAnalysis.details.metaDescription.length} chars
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className={darkMode ? 'text-gray-300' : 'text-gray-600'}>Keyword Density</span>
+                            <span className={darkMode ? 'text-white' : 'text-gray-900'}>
+                              {seoAnalysis.details.keyword.density.toFixed(1)}%
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className={darkMode ? 'text-gray-300' : 'text-gray-600'}>Readability</span>
+                            <span className={darkMode ? 'text-white' : 'text-gray-900'}>
+                              {seoAnalysis.details.readability.grade}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {seoAnalysis.issues.length > 0 && (
+                      <div className="mb-6">
+                        <h4 className={`font-medium mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                          Issues Found ({seoAnalysis.issues.length})
+                        </h4>
+                        <ul className={`space-y-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {seoAnalysis.issues.map((issue, index) => (
+                            <li key={index} className="flex items-start">
+                              <svg className="w-5 h-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span className="text-sm">{issue}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {seoAnalysis.recommendations.length > 0 && (
+                      <div>
+                        <h4 className={`font-medium mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                          Recommendations
+                        </h4>
+                        <ul className={`space-y-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {seoAnalysis.recommendations.map((rec, index) => (
+                            <li key={index} className="flex items-start">
+                              <svg className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span className="text-sm">{rec}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Title */}
                 <div className="space-y-2">
                   <label className={`block text-sm font-semibold ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>

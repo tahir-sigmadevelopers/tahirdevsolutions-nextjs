@@ -34,16 +34,16 @@ export async function POST(req: NextRequest) {
     
     await connectDB();
     
-    const { category } = await req.json();
+    const { name, description } = await req.json();
     
-    if (!category) {
+    if (!name) {
       return NextResponse.json(
         { message: 'Please provide a category name' },
         { status: 400 }
       );
     }
     
-    const existingCategory = await Category.findOne({ category });
+    const existingCategory = await Category.findOne({ category: name });
     
     if (existingCategory) {
       return NextResponse.json(
@@ -52,13 +52,16 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    const newCategory = await Category.create({ category });
+    const newCategory = await Category.create({ 
+      category: name,
+      description: description || '' 
+    });
     
     return NextResponse.json(newCategory, { status: 201 });
   } catch (error) {
     console.error('Error creating category:', error);
     return NextResponse.json(
-      { message: 'Failed to create category' },
+      { message: 'Failed to create category', error: error.message },
       { status: 500 }
     );
   }

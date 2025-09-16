@@ -2,7 +2,11 @@ import mongoose, { Schema, Document } from 'mongoose';
 import { IUser } from './User';
 
 export interface ITestimonial extends Document {
+  name?: string;
   description: string;
+  company?: string;
+  role?: string;
+  imageUrl?: string;
   user?: IUser['_id'];
   approved: boolean;
   createdAt: Date;
@@ -10,9 +14,21 @@ export interface ITestimonial extends Document {
 }
 
 const testimonialSchema = new Schema<ITestimonial>({
+  name: {
+    type: String,
+  },
   description: {
     type: String,
     required: true,
+  },
+  company: {
+    type: String,
+  },
+  role: {
+    type: String,
+  },
+  imageUrl: {
+    type: String,
   },
   user: {
     type: Schema.Types.ObjectId,

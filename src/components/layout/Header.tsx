@@ -48,11 +48,11 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center">
           <Image
-            src="/logo.png"
+            src="/tahir - about.png"
             alt="Tahir Dev Solutions "
             width={40}
             height={40}
-            className="mr-2"
+            className="mr-2 h-12 w-12 rounded-full"
           />
 
           <span

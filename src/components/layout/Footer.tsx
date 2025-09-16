@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/redux/store';
 
@@ -14,8 +15,14 @@ export default function Footer() {
           {/* Brand Section */}
           <div>
             <div className="flex items-center mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center mr-3">
-                <span className="text-white font-bold">MT</span>
+              <div className="w-14 h-14 rounded-full bg-gradient-to-r from-gray-900 to-cyan-600 flex items-center justify-center mr-3">
+                <Image 
+                  src="/tahir - about.png" 
+                  alt="Muhammad Tahir" 
+                  width={50} 
+                  height={50} 
+                  className="rounded-full h-12 w-12 object-cover"
+                />
               </div>
               <h3 className="text-xl font-bold">Muhammad Tahir</h3>
             </div>
