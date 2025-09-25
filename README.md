@@ -1,4 +1,4 @@
-# Tahir Dev Solutions - Next.js 15 Portfolio Website
+# Tahir Dev  - Next.js 15 Portfolio Website
 
 A modern portfolio website built with Next.js 15, featuring a blog, project showcase, and admin dashboard.
 
