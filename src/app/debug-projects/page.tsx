@@ -22,7 +22,7 @@ const DebugProjectsPage = () => {
           console.log('✅ Regular API Success:', data1);
         } else {
           const error1 = await response1.text();
-          setErrors(prev => ({ ...prev, regular: error1 }));
+          setErrors((prev: any) => ({ ...prev, regular: error1 }));
           console.error('❌ Regular API Error:', error1);
         }
 
@@ -35,13 +35,13 @@ const DebugProjectsPage = () => {
           console.log('✅ Featured API Success:', data2);
         } else {
           const error2 = await response2.text();
-          setErrors(prev => ({ ...prev, featured: error2 }));
+          setErrors((prev: any) => ({ ...prev, featured: error2 }));
           console.error('❌ Featured API Error:', error2);
         }
         
       } catch (error) {
         console.error('🚨 Network Error:', error);
-        setErrors(prev => ({ ...prev, network: error.message }));
+        setErrors((prev: any) => ({ ...prev, network: (error as Error).message }));
       } finally {
         setLoading(false);
       }
@@ -101,7 +101,7 @@ const DebugProjectsPage = () => {
           <div className="bg-green-100 p-4 rounded">
             <p className="font-bold text-green-800">✅ Success!</p>
             <p><strong>Projects Count:</strong> {featuredApiData.projects?.length || 0}</p>
-            <p><strong>Featured Count:</strong> {featuredApiData.projects?.filter(p => p.featured).length || 0}</p>
+            <p><strong>Featured Count:</strong> {featuredApiData.projects?.filter((p: any) => p.featured).length || 0}</p>
             {featuredApiData.projects?.length > 0 && (
               <details className="mt-2">
                 <summary className="cursor-pointer">Show Featured Projects</summary>

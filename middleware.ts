@@ -1,6 +1,8 @@
-import { auth } from '@/auth';
+import auth from '@/auth';
+import { NextRequest } from 'next/server';
+import { AuthOptions } from 'next-auth';
 
-export default auth((req) => {
+export default auth((req: any) => {
   const { nextUrl } = req;
   const isAuthenticated = !!req.auth;
 

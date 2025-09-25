@@ -160,7 +160,7 @@ const DashboardPage = () => {
                 <h1 className={`text-3xl md:text-4xl font-bold ${
                   darkMode ? 'text-white' : 'text-gray-900'
                 }`}>
-                  Welcome back, {session.user?.name}! 👋
+                  Welcome back, {session?.user?.name || 'User'}! 👋
                 </h1>
                 <p className={`text-lg mt-2 ${
                   darkMode ? 'text-gray-300' : 'text-gray-600'
@@ -177,11 +177,11 @@ const DashboardPage = () => {
                   Role: 
                 </span>
                 <span className={`ml-2 px-2 py-1 rounded text-xs font-semibold ${
-                  (session.user as any)?.role === 'admin' 
+                  session?.user && (session.user as any)?.role === 'admin' 
                     ? 'bg-purple-500 text-white'
                     : 'bg-blue-500 text-white'
                 }`}>
-                  {(session.user as any)?.role || 'User'}
+                  {session?.user ? (session.user as any)?.role || 'User' : 'User'}
                 </span>
               </div>
             </div>

@@ -696,7 +696,8 @@ const AddBlogPage = () => {
                         content: '',
                         category: '',
                         imageUrl: '',
-                        author: 'Muhammad Tahir'
+                        author: 'Muhammad Tahir',
+                        primaryKeyword: ''
                       });
                       setFeaturedImage(null);
                       setImagePreview('');

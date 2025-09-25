@@ -9,6 +9,8 @@ import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
+type BlogParams = { id: string };
+
 interface Blog {
   _id: string;
   title: string;
@@ -48,9 +50,7 @@ interface Comment {
 
 const BlogDetailPage = () => {
   const { darkMode } = useSelector((state: RootState) => state.theme);
-  const params = useParams();
-  const blogId = params.id as string;
-  
+  const { id: blogId } = useParams<BlogParams>();
   const [blog, setBlog] = useState<Blog | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -92,21 +92,21 @@ const BlogDetailPage = () => {
     try {
       setLoading(true);
       console.log('🔍 Fetching blog with identifier:', blogId);
-      
+
       // Fetch blog details by ID or slug
       const blogResponse = await fetch(`/api/blogs/${blogId}`);
       console.log('📡 Blog API response status:', blogResponse.status);
-      
+
       if (!blogResponse.ok) {
         const errorData = await blogResponse.text();
         console.error('❌ Blog API error:', errorData);
         throw new Error('Blog not found');
       }
-      
+
       const blogData = await blogResponse.json();
       console.log('✅ Blog data received:', { title: blogData.title, slug: blogData.slug });
       setBlog(blogData);
-      
+
       // Fetch comments
       const commentsResponse = await fetch(`/api/comments?blog=${blogData._id}`);
       if (commentsResponse.ok) {
@@ -114,7 +114,7 @@ const BlogDetailPage = () => {
         setComments(commentsData);
         console.log('💬 Comments loaded:', commentsData.length);
       }
-      
+
       // Fetch related blogs
       if (blogData.category) {
         const relatedResponse = await fetch(`/api/blogs?category=${blogData.category._id}&limit=3`);
@@ -124,7 +124,7 @@ const BlogDetailPage = () => {
           console.log('🔗 Related blogs loaded:', relatedData.blogs.length);
         }
       }
-      
+
     } catch (error: any) {
       console.error('💥 Error fetching blog:', error);
       setError(error.message || 'Failed to load blog');
@@ -135,12 +135,12 @@ const BlogDetailPage = () => {
 
   const handleShare = async (platform: string) => {
     setIsSharing(true);
-    
+
     const url = typeof window !== 'undefined' ? window.location.href : '';
     const text = blog?.title || '';
-    
+
     let shareUrl = '';
-    
+
     switch (platform) {
       case 'twitter':
         shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
@@ -161,10 +161,10 @@ const BlogDetailPage = () => {
         setIsSharing(false);
         return;
     }
-    
+
     if (shareUrl) {
       window.open(shareUrl, '_blank', 'width=600,height=400');
-      
+
       // Update share count
       try {
         await fetch(`/api/blogs/${blogId}/share`, { method: 'POST' });
@@ -175,13 +175,13 @@ const BlogDetailPage = () => {
         console.error('Error updating share count:', error);
       }
     }
-    
+
     setTimeout(() => setIsSharing(false), 1000);
   };
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate required fields
     if (!newComment.trim()) {
       toast.error('Please enter a comment');
@@ -199,9 +199,9 @@ const BlogDetailPage = () => {
       toast.error('Please enter a valid email address');
       return;
     }
-    
+
     setSubmittingComment(true);
-    
+
     try {
       const response = await fetch('/api/comments', {
         method: 'POST',
@@ -215,7 +215,7 @@ const BlogDetailPage = () => {
           comment: newComment.trim(),
         }),
       });
-      
+
       if (response.ok) {
         const comment = await response.json();
         setComments([comment, ...comments]);
@@ -274,7 +274,7 @@ const BlogDetailPage = () => {
     const headingRegex = /<h([1-6]).*?id=["'](.*?)["'].*?>(.*?)<\/h[1-6]>/gi;
     const headings: { level: number; id: string; text: string }[] = [];
     let match;
-    
+
     while ((match = headingRegex.exec(content)) !== null) {
       headings.push({
         level: parseInt(match[1]),
@@ -282,7 +282,7 @@ const BlogDetailPage = () => {
         text: match[3].replace(/<[^>]+>/g, ''), // Remove HTML tags
       });
     }
-    
+
     return headings;
   };
 
@@ -319,7 +319,7 @@ const BlogDetailPage = () => {
     <div className={`min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 z-50">
-        <div 
+        <div
           className="h-full bg-gradient-to-r from-green-500 to-blue-500 transition-all duration-300 ease-out"
           style={{ width: `${readingProgress}%` }}
         />
@@ -375,9 +375,9 @@ const BlogDetailPage = () => {
               {/* Meta Information */}
               <div className="flex flex-wrap items-center gap-6 mb-6">
                 <div className="flex items-center space-x-3">
-                  
+
                   <img className='w-14 h-14 rounded-full bg-gradient-to-r flex items-center justify-center' src="/tahir - about.png" alt="" />
-               
+
                   <div>
                     <p className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                       {blog.author}
@@ -433,10 +433,10 @@ const BlogDetailPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className={`prose prose-lg lg:prose-xl max-w-none ${darkMode 
-                ? 'prose-invert prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-a:text-green-400' 
+              className={`prose prose-lg lg:prose-xl max-w-none ${darkMode
+                ? 'prose-invert prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-a:text-green-400'
                 : 'prose-gray prose-a:text-green-600'
-              }`}
+                }`}
             >
               <div
                 dangerouslySetInnerHTML={{ __html: blog.content }}
@@ -459,7 +459,7 @@ const BlogDetailPage = () => {
                   Share it with your network!
                 </p>
               </div>
-              
+
               <div className="flex flex-wrap justify-center gap-4">
                 {[
                   { name: 'Twitter', icon: '🐦', platform: 'twitter' },
@@ -471,11 +471,10 @@ const BlogDetailPage = () => {
                     key={social.platform}
                     onClick={() => handleShare(social.platform)}
                     disabled={isSharing}
-                    className={`flex items-center space-x-3 px-6 py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 ${
-                      darkMode 
-                        ? 'bg-gray-700 text-white shadow-lg hover:shadow-xl' 
-                        : 'bg-white text-gray-700 shadow-lg hover:shadow-xl'
-                    } disabled:opacity-50`}
+                    className={`flex items-center space-x-3 px-6 py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 ${darkMode
+                      ? 'bg-gray-700 text-white shadow-lg hover:shadow-xl'
+                      : 'bg-white text-gray-700 shadow-lg hover:shadow-xl'
+                      } disabled:opacity-50`}
                   >
                     <span className="text-lg">{social?.icon}</span>
                     <span>{social?.name}</span>
@@ -504,11 +503,10 @@ const BlogDetailPage = () => {
                       value={commentName}
                       onChange={(e) => setCommentName(e.target.value)}
                       placeholder="Your name *"
-                      className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${
-                        darkMode 
-                          ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
-                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                      }`}
+                      className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${darkMode
+                        ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400'
+                        : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                        }`}
                       required
                     />
                   </div>
@@ -518,11 +516,10 @@ const BlogDetailPage = () => {
                       value={commentEmail}
                       onChange={(e) => setCommentEmail(e.target.value)}
                       placeholder="Your email *"
-                      className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${
-                        darkMode 
-                          ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
-                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                      }`}
+                      className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${darkMode
+                        ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400'
+                        : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                        }`}
                       required
                     />
                   </div>
@@ -533,11 +530,10 @@ const BlogDetailPage = () => {
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Share your thoughts... *"
                     rows={4}
-                    className={`w-full px-4 py-3 rounded-xl border resize-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${
-                      darkMode 
-                        ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
-                        : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                    }`}
+                    className={`w-full px-4 py-3 rounded-xl border resize-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${darkMode
+                      ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400'
+                      : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
                     required
                   />
                 </div>
@@ -719,11 +715,10 @@ const BlogDetailPage = () => {
         animate={{ opacity: readingProgress > 10 ? 1 : 0, scale: readingProgress > 10 ? 1 : 0 }}
         transition={{ duration: 0.3 }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed bottom-8 right-8 p-4 rounded-full shadow-lg transition-all duration-200 z-40 ${
-          darkMode 
-            ? 'bg-gray-800 hover:bg-gray-700 text-white' 
-            : 'bg-white hover:bg-gray-100 text-gray-900'
-        } hover:shadow-xl hover:scale-110`}
+        className={`fixed bottom-8 right-8 p-4 rounded-full shadow-lg transition-all duration-200 z-40 ${darkMode
+          ? 'bg-gray-800 hover:bg-gray-700 text-white'
+          : 'bg-white hover:bg-gray-100 text-gray-900'
+          } hover:shadow-xl hover:scale-110`}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />

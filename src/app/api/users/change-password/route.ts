@@ -43,7 +43,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Get user with password
-    const user = await User.findById(currentUser?.id).select('+password');
+    const user = await User.findById((currentUser as any)?.id).select('+password');
     
     if (!user) {
       return NextResponse.json(
@@ -67,7 +67,7 @@ export async function PUT(req: NextRequest) {
     const hashedNewPassword = await bcrypt.hash(newPassword, saltRounds);
 
     // Update password
-    await User.findByIdAndUpdate(currentUser?.id, {
+    await User.findByIdAndUpdate((currentUser as any)?.id, {
       password: hashedNewPassword,
     });
 

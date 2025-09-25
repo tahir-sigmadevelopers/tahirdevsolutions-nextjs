@@ -14,7 +14,7 @@ import { SEOAnalyzer, SEOAnalysisResult } from '@/lib/utils/seoAnalyzer';
 // Dynamic import for JoditEditor to avoid SSR issues
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
-const EditBlogPage = ({ params }: { params: { id: string } }) => {
+const EditBlogPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { darkMode } = useSelector((state: RootState) => state.theme);
   const router = useRouter();
   
@@ -63,6 +63,10 @@ const EditBlogPage = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Resolve params
+        const resolvedParams = await params;
+        const { id } = resolvedParams;
+        
         // Fetch categories
         const categoriesResponse = await fetch('/api/categories');
         if (categoriesResponse.ok) {
@@ -73,7 +77,7 @@ const EditBlogPage = ({ params }: { params: { id: string } }) => {
         }
         
         // Fetch blog data
-        const blogResponse = await fetch(`/api/blogs/${params.id}`);
+        const blogResponse = await fetch(`/api/blogs/${id}`);
         if (blogResponse.ok) {
           const blogData = await blogResponse.json();
           setFormData({
@@ -100,7 +104,7 @@ const EditBlogPage = ({ params }: { params: { id: string } }) => {
     };
     
     fetchData();
-  }, [params.id]);
+  }, [params]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -181,6 +185,10 @@ const EditBlogPage = ({ params }: { params: { id: string } }) => {
     setIsSubmitting(true);
     
     try {
+      // Resolve params
+      const resolvedParams = await params;
+      const { id } = resolvedParams;
+      
       // Validation
       if (!formData.title.trim()) {
         toast.error('Please enter a blog title');
@@ -237,7 +245,7 @@ const EditBlogPage = ({ params }: { params: { id: string } }) => {
         }
       };
       
-      const response = await fetch(`/api/blogs/${params.id}`, {
+      const response = await fetch(`/api/blogs/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

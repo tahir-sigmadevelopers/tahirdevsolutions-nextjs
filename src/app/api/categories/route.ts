@@ -4,7 +4,7 @@ import Category from '@/models/Category';
 import { getCurrentUser } from '@/lib/auth';
 
 // Get all categories
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     await connectDB();
     
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
   try {
     const user = await getCurrentUser();
     
-    if (!user || user.role !== 'admin') {
+    if (!user || (user as any).role !== 'admin') {
       return NextResponse.json(
         { message: 'Not authorized' },
         { status: 401 }
@@ -58,10 +58,10 @@ export async function POST(req: NextRequest) {
     });
     
     return NextResponse.json(newCategory, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating category:', error);
     return NextResponse.json(
-      { message: 'Failed to create category', error: error.message },
+      { message: 'Failed to create category', error: error.message || 'Unknown error' },
       { status: 500 }
     );
   }

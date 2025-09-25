@@ -11,9 +11,6 @@ const EditProjectPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { darkMode } = useSelector((state: RootState) => state.theme);
   const router = useRouter();
   
-  // Unwrap params using React.use()
-  const { id } = React.use(params);
-  
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -35,6 +32,10 @@ const EditProjectPage = ({ params }: { params: Promise<{ id: string }> }) => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
+        // Resolve params
+        const resolvedParams = await params;
+        const { id } = resolvedParams;
+        
         const response = await fetch(`/api/projects/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch project');
@@ -58,10 +59,8 @@ const EditProjectPage = ({ params }: { params: Promise<{ id: string }> }) => {
       }
     };
     
-    if (id) {
-      fetchProject();
-    }
-  }, [id]);
+    fetchProject();
+  }, [params]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -221,6 +220,10 @@ const EditProjectPage = ({ params }: { params: Promise<{ id: string }> }) => {
     setIsSubmitting(true);
     
     try {
+      // Resolve params
+      const resolvedParams = await params;
+      const { id } = resolvedParams;
+      
       let imageUrl = formData.currentImageUrl;
       
       // Upload new image if provided
@@ -267,6 +270,10 @@ const EditProjectPage = ({ params }: { params: Promise<{ id: string }> }) => {
     }
     
     try {
+      // Resolve params
+      const resolvedParams = await params;
+      const { id } = resolvedParams;
+      
       const response = await fetch(`/api/projects/${id}`, {
         method: 'DELETE',
         headers: {

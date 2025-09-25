@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 
     await connectDB();
     
-    const user = await User.findById(currentUser?.id).select('-password');
+    const user = await User.findById((currentUser as any)?.id).select('-password');
     
     if (!user) {
       return NextResponse.json(
@@ -78,7 +78,7 @@ export async function PUT(req: NextRequest) {
     // Check if email is already taken by another user
     const existingUser = await User.findOne({ 
       email: email.trim(),
-      _id: { $ne: currentUser.id }
+      _id: { $ne: (currentUser as any).id }
     });
     
     if (existingUser) {
@@ -89,7 +89,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const updatedUser = await User.findByIdAndUpdate(
-      currentUser.id,
+      (currentUser as any).id,
       {
         name: name.trim(),
         email: email.trim(),
@@ -112,8 +112,8 @@ export async function PUT(req: NextRequest) {
     console.error('Error updating user profile:', error);
     
     // Handle validation errors
-    if (error.name === 'ValidationError') {
-      const validationErrors = Object.values(error.errors).map((err: any) => err.message);
+    if (error instanceof Error && error.name === 'ValidationError') {
+      const validationErrors = Object.values((error as any).errors).map((err: any) => err.message);
       return NextResponse.json(
         { message: validationErrors.join(', ') },
         { status: 400 }

@@ -231,7 +231,7 @@ export class SEOAnalyzer {
     // Determine status
     const hasKeywordIssues = !inTitle || !inMetaDescription || !inUrl || !inFirstParagraph || 
                             density < 1 || density > 2;
-    const status = hasKeywordIssues ? 'warning' : 'good';
+    const status = hasKeywordIssues ? ('warning' as const) : ('good' as const);
 
     return {
       inTitle,
@@ -252,7 +252,7 @@ export class SEOAnalyzer {
     // Determine status
     const hasH1Issues = h1Matches !== 1;
     const hasH2Issues = h2Matches === 0;
-    const status = hasH1Issues || hasH2Issues ? 'warning' : 'good';
+    const status = hasH1Issues || hasH2Issues ? ('warning' as const) : ('good' as const);
 
     return {
       h1Count: h1Matches,
@@ -269,7 +269,7 @@ export class SEOAnalyzer {
 
     // Determine status
     const hasLinkIssues = internalLinks === 0 || externalLinks === 0;
-    const status = hasLinkIssues ? 'warning' : 'good';
+    const status = hasLinkIssues ? ('warning' as const) : ('good' as const);
 
     return {
       internal: internalLinks,
@@ -288,7 +288,7 @@ export class SEOAnalyzer {
     const imagesWithoutAlt = allImages - imagesWithAlt;
     
     // Determine status
-    const status = imagesWithoutAlt > 0 ? 'warning' : 'good';
+    const status = imagesWithoutAlt > 0 ? ('warning' as const) : ('good' as const);
 
     return {
       withAlt: imagesWithAlt,
@@ -327,7 +327,7 @@ export class SEOAnalyzer {
       
       // Consider difficult content as warning
       if (score > 12) {
-        status = 'warning';
+        status = 'warning' as const;
       }
     }
 

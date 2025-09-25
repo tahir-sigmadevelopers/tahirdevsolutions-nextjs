@@ -10,9 +10,6 @@ const EditTestimonialPage = ({ params }: { params: Promise<{ id: string }> }) =>
   const { darkMode } = useSelector((state: RootState) => state.theme);
   const router = useRouter();
   
-  // Unwrap params using React.use()
-  const { id } = React.use(params);
-  
   const [formData, setFormData] = useState({
     name: '',
     content: '',
@@ -27,6 +24,10 @@ const EditTestimonialPage = ({ params }: { params: Promise<{ id: string }> }) =>
   useEffect(() => {
     const fetchTestimonial = async () => {
       try {
+        // Resolve params
+        const resolvedParams = await params;
+        const { id } = resolvedParams;
+        
         const response = await fetch(`/api/testimonials/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch testimonial');
@@ -53,10 +54,8 @@ const EditTestimonialPage = ({ params }: { params: Promise<{ id: string }> }) =>
       }
     };
     
-    if (id) {
-      fetchTestimonial();
-    }
-  }, [id, router]);
+    fetchTestimonial();
+  }, [params, router]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -70,6 +69,10 @@ const EditTestimonialPage = ({ params }: { params: Promise<{ id: string }> }) =>
     setIsSubmitting(true);
     
     try {
+      // Resolve params
+      const resolvedParams = await params;
+      const { id } = resolvedParams;
+      
       const response = await fetch(`/api/testimonials/${id}`, {
         method: 'PUT',
         headers: {
@@ -99,6 +102,10 @@ const EditTestimonialPage = ({ params }: { params: Promise<{ id: string }> }) =>
     }
     
     try {
+      // Resolve params
+      const resolvedParams = await params;
+      const { id } = resolvedParams;
+      
       const response = await fetch(`/api/testimonials/${id}`, {
         method: 'DELETE',
       });

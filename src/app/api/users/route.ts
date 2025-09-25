@@ -4,12 +4,12 @@ import User from '@/models/User';
 import { getCurrentUser } from '@/lib/auth';
 
 // Get all users (admin only)
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     console.log('🔍 Users API: Starting request');
     
     const currentUser = await getCurrentUser();
-    console.log('👤 Current user:', currentUser ? { id: currentUser.id, role: (currentUser as any).role } : 'No user found');
+    console.log('👤 Current user:', currentUser ? { id: (currentUser as any).id, role: (currentUser as any).role } : 'No user found');
     
     if (!currentUser) {
       console.log('❌ Users API: No authenticated user');

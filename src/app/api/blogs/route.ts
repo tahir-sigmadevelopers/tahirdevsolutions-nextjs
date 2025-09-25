@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
   try {
     const user = await getCurrentUser();
     
-    if (!user || user.role !== 'admin') {
+    if (!user || (user as any).role !== 'admin') {
       return NextResponse.json(
         { message: 'Not authorized' },
         { status: 401 }

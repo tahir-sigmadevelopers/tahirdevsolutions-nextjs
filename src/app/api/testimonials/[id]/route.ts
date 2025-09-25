@@ -3,95 +3,58 @@ import connectDB from '@/lib/db';
 import Testimonial from '@/models/Testimonial';
 import { getCurrentUser } from '@/lib/auth';
 
-// Get a single testimonial
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+type Context = { params: Promise<{ id: string }> };
+
+// -------- Get a single testimonial --------
+export async function GET(req: NextRequest, { params }: Context) {
+  const { id } = await params;
   try {
     await connectDB();
-    
-    const testimonial = await Testimonial.findById(params.id)
-      .populate('user', 'name image');
-    
+
+    const testimonial = await Testimonial.findById(id).populate('user', 'name image');
     if (!testimonial) {
-      return NextResponse.json(
-        { message: 'Testimonial not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: 'Testimonial not found' }, { status: 404 });
     }
-    
+
     return NextResponse.json(testimonial);
   } catch (error) {
     console.error('Error fetching testimonial:', error);
-    return NextResponse.json(
-      { message: 'Failed to fetch testimonial' },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: 'Failed to fetch testimonial' }, { status: 500 });
   }
 }
 
-// Update a testimonial
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+// -------- Update a testimonial --------
+export async function PUT(req: NextRequest, { params }: Context) {
+  const { id } = await params;
   try {
     const user: any = await getCurrentUser();
-    
     if (!user || user.role !== 'admin') {
-      return NextResponse.json(
-        { message: 'Not authorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: 'Not authorized' }, { status: 401 });
     }
-    
+
     await connectDB();
-    
-    const testimonial = await Testimonial.findById(params.id);
-    
+
+    const testimonial = await Testimonial.findById(id);
     if (!testimonial) {
-      return NextResponse.json(
-        { message: 'Testimonial not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: 'Testimonial not found' }, { status: 404 });
     }
-    
+
     const { name, content, company, role, imageUrl, description, approved } = await req.json();
-    
-    // Use content if provided, otherwise fallback to description for backward compatibility
     const testimonialDescription = content || description;
-    
     if (!testimonialDescription) {
-      return NextResponse.json(
-        { message: 'Please provide a testimonial description' },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: 'Please provide a testimonial description' }, { status: 400 });
     }
-    
+
     const updateData: any = {
       description: testimonialDescription,
-      approved: approved !== undefined ? approved : testimonial.approved,
-      name: name !== undefined ? name : testimonial.name,
-      company: company !== undefined ? company : testimonial.company,
-      role: role !== undefined ? role : testimonial.role,
-      imageUrl: imageUrl !== undefined ? imageUrl : testimonial.imageUrl,
+      approved: approved ?? testimonial.approved,
+      name: name ?? testimonial.name,
+      company: company ?? testimonial.company,
+      role: role ?? testimonial.role,
+      imageUrl: imageUrl ?? testimonial.imageUrl,
     };
-    
-    // Remove the conditional field additions
-    /*
-    if (name !== undefined) updateData.name = name;
-    if (company !== undefined) updateData.company = company;
-    if (role !== undefined) updateData.role = role;
-    if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
-    */
-    
-    const updatedTestimonial = await Testimonial.findByIdAndUpdate(
-      params.id,
-      updateData,
-      { new: true }
-    );
-    
+
+    const updatedTestimonial = await Testimonial.findByIdAndUpdate(id, updateData, { new: true });
     return NextResponse.json(updatedTestimonial);
   } catch (error: any) {
     console.error('Error updating testimonial:', error);
@@ -102,34 +65,24 @@ export async function PUT(
   }
 }
 
-// Delete a testimonial
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+// -------- Delete a testimonial --------
+export async function DELETE(req: NextRequest, { params }: Context) {
+  const { id } = await params;
   try {
     const user: any = await getCurrentUser();
-    const testimonial = await Testimonial.findById(params.id);
-    
-    if (!testimonial) {
-      return NextResponse.json(
-        { message: 'Testimonial not found' },
-        { status: 404 }
-      );
-    }
-    
-    // Check if user is admin or the owner of the testimonial
-    if (!user || (user.role !== 'admin' && (!testimonial.user || testimonial.user.toString() !== user.id))) {
-      return NextResponse.json(
-        { message: 'Not authorized' },
-        { status: 401 }
-      );
-    }
-    
     await connectDB();
-    
-    await Testimonial.findByIdAndDelete(params.id);
-    
+
+    const testimonial = await Testimonial.findById(id);
+    if (!testimonial) {
+      return NextResponse.json({ message: 'Testimonial not found' }, { status: 404 });
+    }
+
+    // Only admin or owner can delete
+    if (!user || (user.role !== 'admin' && testimonial.user?.toString() !== user.id)) {
+      return NextResponse.json({ message: 'Not authorized' }, { status: 401 });
+    }
+
+    await Testimonial.findByIdAndDelete(id);
     return NextResponse.json({ message: 'Testimonial deleted successfully' });
   } catch (error: any) {
     console.error('Error deleting testimonial:', error);

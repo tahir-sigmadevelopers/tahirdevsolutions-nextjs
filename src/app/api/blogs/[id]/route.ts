@@ -9,17 +9,15 @@ import mongoose from 'mongoose';
 
 // Get a single blog by ID or slug
 
-export async function GET(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { params } = context;
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
   try {
-    console.log('🔍 API: Starting blog fetch for identifier:', params.id);
+    console.log('🔍 API: Starting blog fetch for identifier:', id);
     await connectDB();
     console.log('✅ API: Database connected');
 
-    const identifier = params.id;
+    const identifier = id;
     let blog;
 
     // Check if the identifier is a valid MongoDB ObjectId
@@ -70,11 +68,9 @@ export async function GET(
 
 // Update a blog
 
-export async function PUT(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { params } = context;
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
   try {
     const user = await getCurrentUser();
 
@@ -87,7 +83,7 @@ export async function PUT(
 
     await connectDB();
 
-    const blog = await Blog.findById(params.id);
+    const blog = await Blog.findById(id);
 
     if (!blog) {
       return NextResponse.json(
@@ -112,7 +108,7 @@ export async function PUT(
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(
-      params.id,
+      id,
       {
         title,
         author: author || blog.author,
@@ -137,11 +133,10 @@ export async function PUT(
 
 // Delete a blog
 
-export async function DELETE(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { params } = context;
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
+
   try {
     const user = await getCurrentUser();
 
@@ -154,7 +149,7 @@ export async function DELETE(
 
     await connectDB();
 
-    const blog = await Blog.findById(params.id);
+    const blog = await Blog.findById(id);
 
     if (!blog) {
       return NextResponse.json(
@@ -168,7 +163,7 @@ export async function DELETE(
       await deleteFromCloudinary(blog.image.public_id);
     }
 
-    await Blog.findByIdAndDelete(params.id);
+    await Blog.findByIdAndDelete(id);
 
     return NextResponse.json({ message: 'Blog deleted successfully' });
   } catch (error) {
