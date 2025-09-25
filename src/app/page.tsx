@@ -10,6 +10,7 @@ import TestimonialsSection from '@/components/home/TestimonialsSection';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/redux/store';
 import { motion } from 'framer-motion';
+import PricingSection from '@/components/home/PricingSection';
 
 export default function Home() {
   const { darkMode } = useSelector((state: RootState) => state.theme);
@@ -73,6 +74,15 @@ export default function Home() {
           variants={sectionVariants}
         >
           <TestimonialsSection />
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={sectionVariants}
+        >
+          <PricingSection />
         </motion.div>
       </div>
     </div>

@@ -12,6 +12,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Muhammad Tahir Sultan- Portfolio',
   description: 'Professional Web Development Services by Muhammad Tahir in MERN Stack and Webflow in UK, USA, Australia',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
