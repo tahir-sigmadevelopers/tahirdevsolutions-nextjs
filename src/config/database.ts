@@ -23,7 +23,7 @@ export const AUTH_CONFIG = {
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || 'sfjioj(&*(*&(DFFNFIFIJF)))',
   
   // NextAuth URL
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'http://localhost:3000' || 'https://tahirdev.vercel.app',
 };
 
 // Cloudinary Configuration (for image uploads)
